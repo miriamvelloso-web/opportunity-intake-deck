@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opportunity Intake — AI Automation</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --orange:#FF5900;--cream:#F4EDE3;--burgundy:#411517;--lime:#CFFF00;
+  --purple:#8318D8;--lavender:#EBE8FC;
+  --o1:#FF5900;--o2:#D24803;--o3:#FA6E22;--o4:#FF944D;--o5:#FCA06F;--o6:#FFD1B3;
+}
+html{scroll-behavior:smooth;font-family:'Poppins',sans-serif;background:var(--cream)}
+body{color:var(--burgundy);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--burgundy);padding:12px 40px;display:flex;align-items:center;gap:32px;backdrop-filter:blur(10px)}
+nav .logo{color:var(--orange);font-weight:800;font-size:18px;letter-spacing:-0.5px}
+nav a{color:var(--cream);text-decoration:none;font-size:13px;font-weight:500;opacity:0.7;transition:all 0.3s}
+nav a:hover,nav a.active{opacity:1;color:var(--orange)}
+
+/* SECTIONS */
+section{min-height:100vh;padding:80px 60px 60px;position:relative}
+section:nth-child(odd){background:var(--cream)}
+section:nth-child(even){background:#FDFAF6}
+
+/* HERO */
+.hero{background:var(--orange)!important;display:flex;align-items:center;justify-content:center;text-align:left;flex-direction:column;gap:24px}
+.hero h1{font-size:72px;font-weight:900;color:var(--cream);line-height:1.05;max-width:900px}
+.hero h1 span{color:var(--lime)}
+.hero p{font-size:20px;color:var(--cream);opacity:0.85;max-width:700px;font-weight:400}
+.hero .badge{display:inline-flex;align-items:center;gap:8px;background:var(--burgundy);color:var(--cream);padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600}
+
+/* SECTION TITLES */
+.stitle{font-size:14px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+h2{font-size:42px;font-weight:800;color:var(--burgundy);line-height:1.15;margin-bottom:12px}
+h2 span{color:var(--orange)}
+.subtitle{font-size:16px;color:var(--burgundy);opacity:0.6;margin-bottom:48px;max-width:600px}
+
+/* PIPELINE */
+.pipeline{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:40px}
+.pipe-step{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;flex:1;min-width:120px;max-width:150px;cursor:pointer;transition:transform 0.3s}
+.pipe-step:hover{transform:translateY(-8px)}
+.pipe-num{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#fff;transition:all 0.4s}
+.pipe-step:hover .pipe-num{transform:scale(1.15);box-shadow:0 8px 24px rgba(255,89,0,0.3)}
+.pipe-label{font-weight:700;font-size:13px;text-align:center;color:var(--burgundy)}
+.pipe-desc{font-size:11px;text-align:center;color:var(--burgundy);opacity:0.55;line-height:1.4}
+.pipe-arrow{font-size:24px;color:var(--orange);opacity:0.4;margin-top:14px;align-self:center}
+
+/* DETAIL PANEL */
+.detail-panel{margin-top:48px;background:var(--burgundy);border-radius:20px;padding:40px;color:var(--cream);min-height:200px;transition:all 0.5s;opacity:0;transform:translateY(20px)}
+.detail-panel.active{opacity:1;transform:translateY(0)}
+.detail-panel h3{color:var(--orange);font-size:22px;font-weight:700;margin-bottom:16px}
+.detail-panel ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.detail-panel li{padding:8px 0;font-size:14px;opacity:0.85;padding-left:20px;position:relative}
+.detail-panel li::before{content:'';position:absolute;left:0;top:14px;width:8px;height:8px;background:var(--orange);border-radius:50%}
+
+/* STAKEHOLDER CARDS */
+.stake-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:32px}
+.stake-card{background:#fff;border-radius:16px;padding:28px;border-left:5px solid var(--orange);transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden}
+.stake-card::after{content:'';position:absolute;top:0;right:0;width:80px;height:80px;border-radius:0 0 0 80px;opacity:0.08;transition:all 0.3s}
+.stake-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(65,21,23,0.1)}
+.stake-card:nth-child(1){border-color:var(--o1)}.stake-card:nth-child(1)::after{background:var(--o1)}
+.stake-card:nth-child(2){border-color:var(--o2)}.stake-card:nth-child(2)::after{background:var(--o2)}
+.stake-card:nth-child(3){border-color:var(--o3)}.stake-card:nth-child(3)::after{background:var(--o3)}
+.stake-card:nth-child(4){border-color:var(--o4)}.stake-card:nth-child(4)::after{background:var(--o4)}
+.stake-card:nth-child(5){border-color:var(--o5)}.stake-card:nth-child(5)::after{background:var(--o5)}
+.stake-card:hover::after{opacity:0.15;width:120px;height:120px}
+.stake-card h4{font-size:18px;font-weight:700;margin-bottom:12px;color:var(--burgundy)}
+.stake-card .role{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--burgundy);opacity:0.7;margin-bottom:6px}
+.stake-card .role strong{color:var(--orange);opacity:1;min-width:90px}
+
+/* (removed old OKR grid — replaced by bet tabs + KR layout) */
+
+/* BET TABS */
+.bet-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.bet-tab{padding:10px 20px;border-radius:50px;border:2px solid var(--orange);background:transparent;color:var(--burgundy);font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;cursor:pointer;transition:all 0.3s}
+.bet-tab:hover,.bet-tab.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+
+/* BET CONTENT */
+.bet-content{animation:fadeIn 0.4s ease-out}
+.obj-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
+.obj-badge{width:48px;height:48px;min-width:48px;border-radius:14px;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+.obj-header h4{font-size:18px;font-weight:700;color:var(--burgundy);margin-bottom:6px}
+.obj-keywords{display:flex;flex-wrap:wrap;gap:6px}
+.obj-keywords .kw{background:var(--orange);color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;opacity:0.85}
+.kr-list{display:flex;flex-direction:column;gap:10px;margin-bottom:8px}
+.kr-item{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:12px;padding:16px 20px;transition:all 0.3s;border-left:4px solid transparent}
+.kr-item:hover{border-left-color:var(--orange);box-shadow:0 4px 16px rgba(65,21,23,0.06);transform:translateX(4px)}
+.kr-id{width:36px;height:36px;min-width:36px;border-radius:10px;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px}
+.kr-body{flex:1}
+.kr-text{font-size:14px;font-weight:500;color:var(--burgundy);line-height:1.5;margin-bottom:6px}
+.kr-meta{display:flex;flex-wrap:wrap;gap:8px}
+.kr-meta span{font-size:11px;font-weight:600;color:var(--burgundy);opacity:0.5;background:var(--cream);padding:2px 8px;border-radius:6px}
+
+/* MATCHING ENGINE */
+.engine-flow{display:flex;align-items:center;gap:16px;margin-top:48px;justify-content:center;flex-wrap:wrap}
+.engine-box{padding:20px 28px;border-radius:14px;font-weight:600;font-size:14px;text-align:center}
+.engine-input{background:var(--cream);border:2px dashed var(--orange);color:var(--burgundy)}
+.engine-core{background:var(--orange);color:#fff;font-size:16px;padding:24px 36px;box-shadow:0 8px 24px rgba(255,89,0,0.3);animation:pulse 2s infinite}
+.engine-output{background:var(--burgundy);color:var(--cream)}
+.engine-arrow{font-size:28px;color:var(--orange);animation:slideRight 1.5s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 8px 24px rgba(255,89,0,0.3)}50%{box-shadow:0 8px 32px rgba(255,89,0,0.5)}}
+@keyframes slideRight{0%,100%{transform:translateX(0);opacity:0.4}50%{transform:translateX(4px);opacity:1}}
+
+/* BOT DM */
+.dm-container{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px}
+.dm-thread{background:#fff;border-radius:20px;padding:32px;position:relative;overflow:hidden}
+.dm-thread h4{font-size:14px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.dm-thread h4 .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.dm-msg{margin-bottom:16px;padding:16px;border-radius:12px;font-size:13px;line-height:1.6;animation:fadeIn 0.5s ease-out}
+.dm-bot{background:var(--cream);border-left:3px solid var(--orange)}
+.dm-user{background:var(--lavender);border-left:3px solid var(--purple);margin-left:24px}
+.dm-bot .sender{font-weight:700;color:var(--orange);font-size:12px;margin-bottom:6px}
+.dm-user .sender{font-weight:700;color:var(--purple);font-size:12px;margin-bottom:6px}
+.dm-action{background:var(--burgundy);color:var(--cream);padding:12px 16px;border-radius:10px;font-size:12px;display:flex;align-items:center;gap:8px;margin-top:8px}
+.dm-action svg{width:16px;height:16px;fill:var(--orange)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* STATUS TRIGGER */
+.status-trigger{background:var(--burgundy);border-radius:16px;padding:24px 32px;margin-bottom:32px;text-align:center}
+.trigger-label{color:var(--cream);font-size:13px;font-weight:600;margin-bottom:14px;opacity:0.7;text-transform:uppercase;letter-spacing:1px}
+.trigger-chips{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.trigger-chip{color:#fff;padding:8px 16px;border-radius:10px;font-size:12px;font-weight:700;white-space:nowrap}
+.trigger-arrow{color:var(--cream);opacity:0.3;font-size:18px}
+
+/* SCORING FRAMEWORK */
+.score-dims{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:40px}
+.score-dim{background:#fff;border-radius:16px;padding:24px;border-top:4px solid var(--orange);transition:all 0.3s}
+.score-dim:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(65,21,23,0.08)}
+.score-dim h4{font-size:16px;font-weight:700;color:var(--burgundy);margin-bottom:4px}
+.score-dim .dim-weight{font-size:12px;font-weight:700;color:var(--orange);margin-bottom:14px}
+.score-dim table{width:100%;font-size:12px;border-collapse:collapse}
+.score-dim th{text-align:left;font-weight:700;color:var(--burgundy);padding:6px 4px;border-bottom:2px solid var(--cream);opacity:0.6}
+.score-dim td{padding:6px 4px;border-bottom:1px solid var(--cream);color:var(--burgundy);opacity:0.8}
+.score-dim td:first-child{font-weight:700;color:var(--orange);opacity:1}
+.score-table-wrap{overflow-x:auto;margin-top:8px}
+.score-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:14px;overflow:hidden;font-size:13px}
+.score-table thead th{background:var(--burgundy);color:var(--cream);padding:14px 12px;font-weight:700;font-size:12px;text-align:left;white-space:nowrap;position:sticky;top:0}
+.score-table thead th:first-child{border-radius:14px 0 0 0}
+.score-table thead th:last-child{border-radius:0 14px 0 0}
+.score-table tbody td{padding:12px;border-bottom:1px solid var(--cream);color:var(--burgundy);vertical-align:middle}
+.score-table tbody tr:hover{background:rgba(255,89,0,0.04)}
+.score-table .rank{font-weight:800;color:var(--orange);font-size:16px;text-align:center;width:40px}
+.score-table .opp-name{font-weight:600;max-width:200px}
+.score-table .opp-bet{font-size:11px;color:var(--burgundy);opacity:0.5;font-weight:500}
+.score-val{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;font-weight:800;font-size:13px;color:#fff}
+.sv-5{background:#FF5900}.sv-4{background:#D24803}.sv-3{background:#FA6E22}.sv-2{background:#FF944D}.sv-1{background:#FCA06F}
+.total-score{font-weight:800;font-size:18px;color:var(--orange)}
+.score-bar{width:80px;height:8px;border-radius:4px;background:var(--cream);overflow:hidden;display:inline-block;vertical-align:middle;margin-left:8px}
+.score-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--orange),var(--lime))}
+.score-legend{display:flex;gap:24px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.score-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--burgundy);opacity:0.7}
+.score-legend-item .dot{width:12px;height:12px;border-radius:4px}
+
+/* COUNCIL VIEW */
+.tier-label{display:flex;align-items:center;gap:12px;margin:32px 0 16px}
+.tier-label h3{font-size:18px;font-weight:700;color:var(--burgundy)}
+.tier-badge{padding:5px 14px;border-radius:8px;font-size:12px;font-weight:700;color:#fff}
+.tier-badge.fast{background:#2e7d32}
+.tier-badge.discuss{background:var(--orange)}
+.tier-badge.defer{background:#9e9e9e}
+.tier-count{font-size:13px;color:var(--burgundy);opacity:0.4;font-weight:600}
+.council-card{background:#fff;border-radius:14px;margin-bottom:10px;overflow:hidden;transition:all 0.3s;border-left:4px solid transparent;cursor:pointer}
+.council-card:hover{box-shadow:0 4px 16px rgba(65,21,23,0.07);transform:translateX(3px)}
+.council-card.fast-track{border-left-color:#2e7d32}
+.council-card.discuss{border-left-color:var(--orange)}
+.council-card.defer{border-left-color:#9e9e9e}
+.council-header{display:flex;align-items:center;gap:14px;padding:16px 20px}
+.council-rank{width:32px;height:32px;min-width:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff}
+.council-info{flex:1;min-width:0}
+.council-name{font-weight:700;font-size:14px;color:var(--burgundy)}
+.council-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.council-meta span{font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px}
+.council-meta .cm-bet{background:var(--cream);color:var(--burgundy);opacity:0.6}
+.council-meta .cm-prio{background:var(--burgundy);color:var(--cream)}
+.council-meta .cm-status{background:var(--lavender);color:var(--purple)}
+.council-score{text-align:center;min-width:56px}
+.council-score .cs-val{font-weight:800;font-size:20px;color:var(--orange)}
+.council-score .cs-label{font-size:10px;color:var(--burgundy);opacity:0.4;font-weight:600}
+.council-chevron{font-size:18px;color:var(--burgundy);opacity:0.3;transition:transform 0.3s;padding-right:8px}
+.council-card.open .council-chevron{transform:rotate(180deg);opacity:0.6}
+.council-detail{display:none;padding:0 20px 20px;border-top:1px solid var(--cream)}
+.council-card.open .council-detail{display:block}
+.cd-section{margin-top:14px}
+.cd-section h5{font-size:12px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.cd-section p{font-size:13px;color:var(--burgundy);line-height:1.7;opacity:0.8}
+.cd-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cd-field{font-size:12px;color:var(--burgundy)}
+.cd-field strong{color:var(--orange);display:block;font-size:11px;margin-bottom:2px;text-transform:uppercase;letter-spacing:0.5px}
+.cd-comment{background:var(--cream);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--burgundy);margin-top:8px;border-left:3px solid var(--orange)}
+.cd-comment .cc-author{font-weight:700;color:var(--orange);margin-bottom:4px;font-size:11px}
+.cd-link{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;font-size:12px;font-weight:600;text-decoration:none;margin-top:8px;transition:all 0.2s}
+.cd-link:hover{background:var(--burgundy)}
+.cd-scores{display:flex;gap:16px;margin-top:8px}
+.cd-score-pill{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--burgundy)}
+.cd-score-pill .pill-val{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#fff}
+.cd-okr{background:var(--lavender);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--purple);margin-top:8px}
+
+/* ARCHITECTURE */
+.arch-diagram{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:48px;flex-wrap:wrap}
+.arch-node{width:220px;padding:28px 20px;border-radius:20px;text-align:center;color:#fff;position:relative;transition:all 0.3s}
+.arch-node:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,0.15)}
+.arch-node h4{font-size:16px;font-weight:700;margin-bottom:12px}
+.arch-node ul{list-style:none;font-size:12px;opacity:0.85;line-height:1.8}
+.arch-node.sheets{background:var(--o2)}
+.arch-node.claude{background:var(--orange);width:280px;padding:36px 24px}
+.arch-node.slack{background:var(--purple)}
+.arch-connector{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--burgundy);opacity:0.5}
+.arch-connector .arrow-line{width:60px;height:3px;background:var(--burgundy);opacity:0.3;position:relative}
+.arch-connector .arrow-line::after{content:'';position:absolute;right:-6px;top:-4px;border:6px solid transparent;border-left:8px solid var(--burgundy);opacity:0.3}
+.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.benefit{background:var(--burgundy);color:var(--cream);padding:24px;border-radius:14px;text-align:center;font-size:14px;font-weight:600;transition:all 0.3s}
+.benefit:hover{background:var(--orange)}
+
+/* TIMELINE */
+.timeline{position:relative;margin-top:48px;padding-left:60px}
+.timeline::before{content:'';position:absolute;left:30px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--o1),var(--o2),var(--o3),var(--purple))}
+.phase{position:relative;margin-bottom:40px;padding:28px;background:#fff;border-radius:16px;max-width:600px;transition:all 0.3s;cursor:pointer}
+.phase:hover{transform:translateX(8px);box-shadow:0 8px 24px rgba(65,21,23,0.08)}
+.phase::before{content:'';position:absolute;left:-42px;top:28px;width:24px;height:24px;border-radius:50%;border:4px solid #fff;box-shadow:0 0 0 3px var(--orange)}
+.phase:nth-child(1)::before{background:var(--o1)}.phase:nth-child(2)::before{background:var(--o2)}
+.phase:nth-child(3)::before{background:var(--o3)}.phase:nth-child(4)::before{background:var(--purple)}
+.phase h4{font-size:18px;font-weight:700;color:var(--burgundy);margin-bottom:4px}
+.phase .week{font-size:12px;font-weight:700;color:var(--orange);margin-bottom:10px}
+.phase ul{list-style:none;font-size:13px;line-height:1.8;color:var(--burgundy);opacity:0.7}
+.phase li::before{content:'';display:inline-block;width:6px;height:6px;background:var(--orange);border-radius:50%;margin-right:8px;vertical-align:middle}
+
+/* SCROLL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.22,1,0.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}.reveal-delay-4{transition-delay:0.4s}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  section{padding:80px 24px 40px}
+  .hero h1{font-size:40px}
+  h2{font-size:32px}
+  .okr-grid{grid-template-columns:1fr}
+  .dm-container{grid-template-columns:1fr}
+  .arch-diagram{flex-direction:column}
+  .benefits{grid-template-columns:1fr}
+  .pipeline{flex-direction:column;align-items:center}
+  .pipe-arrow{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><img src="assets/talabat-logo.png" alt="talabat" style="height:28px;transform:rotate(4.7deg)"></div>
+  <a href="#hero" class="active">Home</a>
+  <a href="#pipeline">Pipeline</a>
+  <a href="#stakeholders">Stakeholders</a>
+  <a href="#okr">OKR Mapping</a>
+  <a href="#bot">Bot Flow</a>
+  <a href="#scoring">Scoring</a>
+  <a href="#council">Council</a>
+  <a href="#architecture">Architecture</a>
+  <a href="#rollout">Rollout</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <h1>Opportunity <span>Intake</span><br>AI Automation</h1>
+  <p>End-to-end automation of the intake process — from detecting new submissions to assigning stakeholders and notifying via Slack DM.</p>
+  <div class="badge">Product Ops &bull; Miriam Velloso + Eoin Hickey &bull; April 2026</div>
+</section>
+
+<!-- PIPELINE -->
+<section id="pipeline">
+  <div class="stitle reveal">How It Works</div>
+  <h2 class="reveal">The <span>7-Step</span> Pipeline</h2>
+  <p class="subtitle reveal">Click any step to see details. The automation runs end-to-end with zero manual work.</p>
+
+  <div class="pipeline">
+    <div class="pipe-step reveal" data-step="0" onclick="showStep(0)">
+      <div class="pipe-num" style="background:var(--o1)">1</div>
+      <div class="pipe-label">Classify</div>
+      <div class="pipe-desc">New Bet vs Optimization</div>
+    </div>
+    <div class="pipe-arrow reveal">&rarr;</div>
+    <div class="pipe-step reveal reveal-delay-1" data-step="1" onclick="showStep(1)">
+      <div class="pipe-num" style="background:var(--o2)">2</div>
+      <div class="pipe-label">Detect</div>
+      <div class="pipe-desc">Scan 6 bet tabs for new rows</div>
+    </div>
+    <div class="pipe-arrow reveal">&rarr;</div>
+    <div class="pipe-step reveal reveal-delay-2" data-step="2" onclick="showStep(2)">
+      <div class="pipe-num" style="background:var(--o3)">3</div>
+      <div class="pipe-label">Evaluate</div>
+      <div class="pipe-desc">Check required fields & quality</div>
+    </div>
+    <div class="pipe-arrow reveal">&rarr;</div>
+    <div class="pipe-step reveal reveal-delay-3" data-step="3" onclick="showStep(3)">
+      <div class="pipe-num" style="background:var(--o4)">4</div>
+      <div class="pipe-label">Assign</div>
+      <div class="pipe-desc">Theme &rarr; CBO, Tribe, PM</div>
+    </div>
+    <div class="pipe-arrow reveal">&rarr;</div>
+    <div class="pipe-step reveal reveal-delay-1" data-step="4" onclick="showStep(4)">
+      <div class="pipe-num" style="background:var(--o5)">5</div>
+      <div class="pipe-label">Map OKR</div>
+      <div class="pipe-desc">Keywords &rarr; H1 2026 OKR</div>
+    </div>
+    <div class="pipe-arrow reveal">&rarr;</div>
+    <div class="pipe-step reveal reveal-delay-2" data-step="5" onclick="showStep(5)">
+      <div class="pipe-num" style="background:var(--purple)">6</div>
+      <div class="pipe-label">Status</div>
+      <div class="pipe-desc">Ready / Needs Clarification</div>
+    </div>
+    <div class="pipe-arrow reveal">&rarr;</div>
+    <div class="pipe-step reveal reveal-delay-3" data-step="6" onclick="showStep(6)">
+      <div class="pipe-num" style="background:var(--burgundy)">7</div>
+      <div class="pipe-label">DM Submitter</div>
+      <div class="pipe-desc">Bot sends Slack DM</div>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detailPanel">
+    <h3 id="detailTitle"></h3>
+    <ul id="detailList"></ul>
+  </div>
+</section>
+
+<!-- STAKEHOLDERS -->
+<section id="stakeholders">
+  <div class="stitle reveal">Step 4</div>
+  <h2 class="reveal">Stakeholder <span>Auto-Assignment</span></h2>
+  <p class="subtitle reveal">Theme (col C) drives a lookup against the Intake Council tab to auto-fill CBO, Product Tribe, and Bet Lead.</p>
+
+  <div class="stake-grid">
+    <div class="stake-card reveal">
+      <h4>Choice</h4>
+      <div class="role"><strong>CBO</strong> Kedar Kulkarni</div>
+      <div class="role"><strong>Tribe</strong> Tony Fadel</div>
+      <div class="role"><strong>Bet Lead</strong> Sofia Simoes</div>
+    </div>
+    <div class="stake-card reveal reveal-delay-1">
+      <h4>Experience</h4>
+      <div class="role"><strong>CBO</strong> Khee Lim / Aanchal</div>
+      <div class="role"><strong>Tribe</strong> Rose Marsh</div>
+      <div class="role"><strong>Bet Lead</strong> Islam Ameen</div>
+    </div>
+    <div class="stake-card reveal reveal-delay-2">
+      <h4>Value</h4>
+      <div class="role"><strong>CBO</strong> Alvaro Martinez</div>
+      <div class="role"><strong>Tribe</strong> Rose Marsh</div>
+      <div class="role"><strong>Bet Lead</strong> Emily Thomas</div>
+    </div>
+    <div class="stake-card reveal reveal-delay-3">
+      <h4>Ecosystem & Growth</h4>
+      <div class="role"><strong>MAU</strong> Alvaro Martinez</div>
+      <div class="role"><strong>Topline</strong> Hussein Daher</div>
+      <div class="role"><strong>H&B</strong> Moiza Saeed</div>
+    </div>
+    <div class="stake-card reveal reveal-delay-4">
+      <h4>Foundations</h4>
+      <div class="role"><strong>CBO</strong> TBD</div>
+      <div class="role"><strong>Tribe</strong> Sofia Simoes</div>
+    </div>
+  </div>
+</section>
+
+<!-- OKR MAPPING -->
+<section id="okr">
+  <div class="stitle reveal">Step 5 &bull; Q2 2026 P&T</div>
+  <h2 class="reveal">OKR <span>Mapping Engine</span></h2>
+  <p class="subtitle reveal">Optimizations are matched to Q2 P&T Objectives using keyword analysis. Click any bet to see its KRs.</p>
+
+  <div class="bet-tabs reveal">
+    <button class="bet-tab active" onclick="showBet('choice')">1. Choice</button>
+    <button class="bet-tab" onclick="showBet('experience')">2. Experience</button>
+    <button class="bet-tab" onclick="showBet('value')">3. Value</button>
+    <button class="bet-tab" onclick="showBet('ecosystem')">4. Ecosystem + Growth</button>
+    <button class="bet-tab" onclick="showBet('foundation')">5. Foundation</button>
+  </div>
+
+  <div class="bet-content" id="bet-choice">
+    <div class="obj-header"><div class="obj-badge">O1</div><div><h4>Grow G&R</h4><div class="obj-keywords"><span class="kw">fresh</span><span class="kw">discovery</span><span class="kw">search</span><span class="kw">add to cart</span><span class="kw">categories</span></div></div></div>
+    <div class="kr-list">
+      <div class="kr-item"><div class="kr-id">KR1</div><div class="kr-body"><div class="kr-text">Increase Fresh & Ultra Fresh add to cart per user by +2.5%</div><div class="kr-meta"><span>Target: 6%</span><span>Current: 0.8%</span><span>PM: Firas Alashram Gomez</span></div></div></div>
+      <div class="kr-item"><div class="kr-id">KR2</div><div class="kr-body"><div class="kr-text">Improve Discovery & Navigation via categories exposure add to cart per user by 10%</div><div class="kr-meta"><span>Target: 10%</span><span>Current: 0%</span><span>PM: Rana Hegazi</span></div></div></div>
+      <div class="kr-item"><div class="kr-id">KR3</div><div class="kr-body"><div class="kr-text">Increase Search add to Cart per user by +4.5%</div><div class="kr-meta"><span>Target: 4.5%</span><span>Current: 0%</span><span>PM: Firas Alashram Gomez</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="bet-content" id="bet-experience" style="display:none">
+    <div class="obj-header"><div class="obj-badge" style="background:var(--o2)">O2</div><div><h4>Redefine customer & partner peace of mind</h4><div class="obj-keywords"><span class="kw">contact rate</span><span class="kw">deflection</span><span class="kw">cancellation</span><span class="kw">unavailable items</span></div></div></div>
+    <div class="kr-list">
+      <div class="kr-item"><div class="kr-id" style="background:var(--o2)">KR1</div><div class="kr-body"><div class="kr-text">Reduce contact rate by 5.1%</div><div class="kr-meta"><span>Target: -5.1%</span><span>Current: 0%</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--o2)">KR2</div><div class="kr-body"><div class="kr-text">Reduce deflected sessions rate by 1.9%</div><div class="kr-meta"><span>Target: -1.9%</span><span>Current: 0%</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--o2)">KR3</div><div class="kr-body"><div class="kr-text">Reduce cancellation due to unavailable items</div><div class="kr-meta"><span>Baseline: 10</span><span>Target: 30</span><span>Current: 15</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="bet-content" id="bet-value" style="display:none">
+    <div class="obj-header"><div class="obj-badge" style="background:var(--o3)">O5</div><div><h4>Topline acceleration (meet Best Estimates)</h4><div class="obj-keywords"><span class="kw">frequency</span><span class="kw">missions</span><span class="kw">best sellers</span><span class="kw">incentivised</span><span class="kw">orders/user</span></div></div></div>
+    <div class="kr-list">
+      <div class="kr-item"><div class="kr-id" style="background:var(--o3)">KR1</div><div class="kr-body"><div class="kr-text">Increase order frequency through Missions experiments by 5%</div><div class="kr-meta"><span>Target: 5%</span><span>Current: 1.41%</span><span>PM: Utsa Bhatia</span><span>EGY</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--o3)">KR2</div><div class="kr-body"><div class="kr-text">Increase incentivised item orders/user by 2% through Best Sellers</div><div class="kr-meta"><span>Target: 2%</span><span>Current: 0%</span><span>PM: Flossie Reynolds</span><span>UAE</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="bet-content" id="bet-ecosystem" style="display:none">
+    <div class="obj-header"><div class="obj-badge" style="background:var(--o4)">O3</div><div><h4>Boost MAUs</h4><div class="obj-keywords"><span class="kw">MAU</span><span class="kw">QC</span><span class="kw">acquisition</span></div></div></div>
+    <div class="kr-list">
+      <div class="kr-item"><div class="kr-id" style="background:var(--o4)">KR1</div><div class="kr-body"><div class="kr-text">Increase QC MAUs by 10%</div><div class="kr-meta"><span>Target: 10%</span><span>Current: 0.39%</span><span>PM: Howaida Thabet</span></div></div></div>
+    </div>
+
+    <div class="obj-header" style="margin-top:24px"><div class="obj-badge" style="background:var(--o5)">O4</div><div><h4>Grow tPro</h4><div class="obj-keywords"><span class="kw">tPro</span><span class="kw">churn</span><span class="kw">loyalty</span><span class="kw">partnership</span><span class="kw">Anghami</span><span class="kw">OSN+</span></div></div></div>
+    <div class="kr-list">
+      <div class="kr-item"><div class="kr-id" style="background:var(--o5)">KR1</div><div class="kr-body"><div class="kr-text">Reduce triggered churn by 5.5%</div><div class="kr-meta"><span>Target: 2%</span><span>PM: Leen Ashqar</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--o5)">KR2</div><div class="kr-body"><div class="kr-text">Launch partnership integrations [Anghami, OSN+ in UAE & Vodafone API]</div><div class="kr-meta"><span>Target: 3</span><span>PM: Leen Ashqar</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--o5)">KR3</div><div class="kr-body"><div class="kr-text">Readiness for H2 tiered loyalty launch through validated cashback mechanics</div><div class="kr-meta"><span>Target: 100%</span><span>PM: Leen Ashqar</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--o5)">KR4</div><div class="kr-body"><div class="kr-text">Rebuild Pro AI-first & unlock foundations for loyalty</div><div class="kr-meta"><span>Target: 1</span><span>PM: Leen Ashqar</span></div></div></div>
+    </div>
+
+    <div class="obj-header" style="margin-top:24px"><div class="obj-badge" style="background:var(--purple)">O6</div><div><h4>Establish a personalisation engine</h4><div class="obj-keywords"><span class="kw">personalisation</span><span class="kw">home</span><span class="kw">ranking</span><span class="kw">relevance</span></div></div></div>
+    <div class="kr-list">
+      <div class="kr-item"><div class="kr-id" style="background:var(--purple)">KR1</div><div class="kr-body"><div class="kr-text">Increase component clicks per session on Home through personalized ranking by 1.5%</div><div class="kr-meta"><span>Target: 10%</span><span>PM: Adrian Alvarez</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--purple)">KR2</div><div class="kr-body"><div class="kr-text">Increase Home orders per user through time-context relevance by 0.3%</div><div class="kr-meta"><span>Target: 1.5%</span><span>PM: Adrian Alvarez</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--purple)">KR3</div><div class="kr-body"><div class="kr-text">Enable personalization decision-making at scale</div><div class="kr-meta"><span>Target: 100%</span><span>PM: Adrian Alvarez</span></div></div></div>
+    </div>
+
+    <div class="obj-header" style="margin-top:24px"><div class="obj-badge" style="background:#B34700">O7</div><div><h4>Best new growth initiatives</h4><div class="obj-keywords"><span class="kw">beauty</span><span class="kw">dark store</span><span class="kw">RNPL</span><span class="kw">dine out</span><span class="kw">pay at table</span></div></div></div>
+    <div class="kr-list">
+      <div class="kr-item"><div class="kr-id" style="background:#B34700">KR1</div><div class="kr-body"><div class="kr-text">Launch Beauty Dark Store in KW</div><div class="kr-meta"><span>Target: 100%</span><span>PM: Aliya Ismailova</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:#B34700">KR2</div><div class="kr-body"><div class="kr-text">Increase Beauty CVR2 in KW</div><div class="kr-meta"><span>Target: 2.86%</span><span>PM: Aliya Ismailova</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:#B34700">KR3</div><div class="kr-body"><div class="kr-text">RNPL: Remittance-only product ready for go-live with payment processing fully handled by talabat</div><div class="kr-meta"><span>Target: 100%</span><span>PM: Cherry Maguire</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:#B34700">KR4</div><div class="kr-body"><div class="kr-text">Launch Dine Out Pay at Table MVP</div><div class="kr-meta"><span>Target: 100%</span><span>PM: Khalil Daniel</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:#B34700">KR5</div><div class="kr-body"><div class="kr-text">Improve Existing Verticals (Curbside Pick Up, Pharmacy, Flowers)</div><div class="kr-meta"><span>Target: TBD</span></div></div></div>
+    </div>
+
+    <div class="obj-header" style="margin-top:24px"><div class="obj-badge" style="background:var(--o2)">O8</div><div><h4>Grow NMR & NCR</h4><div class="obj-keywords"><span class="kw">NMR</span><span class="kw">NCR</span><span class="kw">ads</span><span class="kw">sponsored</span><span class="kw">brand</span><span class="kw">incrementality</span></div></div></div>
+    <div class="kr-list">
+      <div class="kr-item"><div class="kr-id" style="background:var(--o2)">KR1</div><div class="kr-body"><div class="kr-text">Achieve &euro;23M in NMR Sales</div><div class="kr-meta"><span>Target: &euro;23M</span><span>Design: Marina Botross</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--o2)">KR2</div><div class="kr-body"><div class="kr-text">Generate &euro;2.65M in NMR sales from New Assets</div><div class="kr-meta"><span>Target: &euro;2.65M</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--o2)">KR3</div><div class="kr-body"><div class="kr-text">Define & launch a full-funnel ads Incrementality Measurement Framework</div><div class="kr-meta"><span>Target: 100%</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--o2)">KR4</div><div class="kr-body"><div class="kr-text">Capture &euro;200k in AAA/KA brand investment through new top-funnel NCR inventory</div><div class="kr-meta"><span>Target: 100%</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--o2)">KR5</div><div class="kr-body"><div class="kr-text">Complete Sponsored Deals expansions to all markets</div><div class="kr-meta"><span>Target: 100%</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="bet-content" id="bet-foundation" style="display:none">
+    <div class="obj-header"><div class="obj-badge" style="background:var(--burgundy)">O9</div><div><h4>Global migrations and Foundations</h4><div class="obj-keywords"><span class="kw">fraud</span><span class="kw">migration</span><span class="kw">disaster recovery</span><span class="kw">fintech</span><span class="kw">observability</span></div></div></div>
+    <div class="kr-list">
+      <div class="kr-item"><div class="kr-id" style="background:var(--burgundy)">KR1</div><div class="kr-body"><div class="kr-text">Fraud and Scraping project</div><div class="kr-meta"><span>Target: 100%</span><span>MENA</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--burgundy)">KR2</div><div class="kr-body"><div class="kr-text">Complete Global Reco service migration</div><div class="kr-meta"><span>Target: 100%</span><span>MENA</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--burgundy)">KR3</div><div class="kr-body"><div class="kr-text">Setup Disaster Recovery</div><div class="kr-meta"><span>Target: 100%</span><span>MENA</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--burgundy)">KR4</div><div class="kr-body"><div class="kr-text">Complete Milestones 2 & 4 of Fintech | Payment Migrations</div><div class="kr-meta"><span>Target: 100%</span><span>Current: 36%</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--burgundy)">KR5</div><div class="kr-body"><div class="kr-text">Complete Observability migration</div><div class="kr-meta"><span>Baseline: 85%</span><span>Target: 100%</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:var(--burgundy)">KR6</div><div class="kr-body"><div class="kr-text">Sunset main db (vendor data, Shield)</div><div class="kr-meta"><span>Baseline: 64%</span><span>Target: 100%</span></div></div></div>
+    </div>
+
+    <div class="obj-header" style="margin-top:24px"><div class="obj-badge" style="background:#595959">O10</div><div><h4>30% of P&T org moves from Early Adopter to Power User in AI</h4><div class="obj-keywords"><span class="kw">AI</span><span class="kw">DataMaxx</span><span class="kw">repo readiness</span><span class="kw">AI-first</span></div></div></div>
+    <div class="kr-list">
+      <div class="kr-item"><div class="kr-id" style="background:#595959">KR1</div><div class="kr-body"><div class="kr-text">One feature delivered fully with AI by every squad</div><div class="kr-meta"><span>Target: 35</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:#595959">KR2</div><div class="kr-body"><div class="kr-text">DataMaxx launched with 90% accuracy for all domains & incl Context Service for one domain</div><div class="kr-meta"><span>Target: 90%</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:#595959">KR3</div><div class="kr-body"><div class="kr-text">Repo readiness for AI usage framework</div><div class="kr-meta"><span>Target: 100%</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:#595959">KR4</div><div class="kr-body"><div class="kr-text">Rebuild Pro AI first</div><div class="kr-meta"><span>Target: 100%</span></div></div></div>
+      <div class="kr-item"><div class="kr-id" style="background:#595959">KR5</div><div class="kr-body"><div class="kr-text">Remove transmission from being a blocker for new products / verticals</div><div class="kr-meta"><span>Target: 100%</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="engine-flow reveal">
+    <div class="engine-box engine-input">Opportunity<br>description text</div>
+    <div class="engine-arrow">&rarr;</div>
+    <div class="engine-box engine-core">Keyword<br>Matching Engine</div>
+    <div class="engine-arrow">&rarr;</div>
+    <div class="engine-box engine-output">Mapped OKR<br>+ KR + Owner</div>
+  </div>
+</section>
+
+<!-- BOT DM FLOW -->
+<section id="bot">
+  <div class="stitle reveal">Step 7</div>
+  <h2 class="reveal">Bot <span>Direct Message</span> Flow</h2>
+  <p class="subtitle reveal">The bot DMs the submitter every time the status changes — not just once. Any update triggers a new message.</p>
+
+  <div class="status-trigger reveal">
+    <div class="trigger-label">Triggers on any status change</div>
+    <div class="trigger-chips">
+      <span class="trigger-chip" style="background:var(--o3)">NEW</span>
+      <span class="trigger-arrow">&rarr;</span>
+      <span class="trigger-chip" style="background:var(--orange)">Ready for Review</span>
+      <span class="trigger-arrow">&rarr;</span>
+      <span class="trigger-chip" style="background:var(--purple)">In Review</span>
+      <span class="trigger-arrow">&rarr;</span>
+      <span class="trigger-chip" style="background:#B34700">Needs More Info</span>
+      <span class="trigger-arrow">&rarr;</span>
+      <span class="trigger-chip" style="background:var(--burgundy)">Approved / Rejected</span>
+    </div>
+  </div>
+
+  <div class="dm-container">
+    <div class="dm-thread reveal">
+      <h4><span class="dot" style="background:var(--orange)"></span> Ready for Review</h4>
+      <div class="dm-msg dm-bot">
+        <div class="sender">Intake Bot</div>
+        &#128229; <strong>Your initiative is queued for review</strong><br><br>
+        <code style="background:var(--burgundy);color:var(--cream);padding:3px 8px;border-radius:4px;font-size:12px">Launch premium vendor tier</code><br>
+        <em style="opacity:0.6;font-size:12px">Bet: 1/ Choice</em><br><br>
+        &bull; CBO: Kedar Kulkarni<br>
+        &bull; Product Tribe: Tony Fadel<br><br>
+        <span style="opacity:0.7;font-size:12px">You'll be notified when the review kicks off. Nothing needed from you right now.</span>
+      </div>
+      <div class="dm-action">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        No action needed — submitter is kept in the loop
+      </div>
+    </div>
+
+    <div class="dm-thread reveal reveal-delay-1">
+      <h4><span class="dot" style="background:#B34700"></span> Needs Clarification</h4>
+      <div class="dm-msg dm-bot">
+        <div class="sender">Intake Bot</div>
+        &#128680; <strong>Action needed — the review team has questions</strong><br><br>
+        <code style="background:var(--burgundy);color:var(--cream);padding:3px 8px;border-radius:4px;font-size:12px">Reduce delivery cost for tmart</code><br>
+        <em style="opacity:0.6;font-size:12px">Bet: 2/Experience</em><br><br>
+        &#128221; <strong>What you submitted</strong><br>
+        <div style="border-left:3px solid var(--orange);padding:8px 12px;margin:8px 0;background:rgba(255,89,0,0.05);border-radius:0 6px 6px 0;font-size:12px;font-style:italic">
+          Reduce delivery cost for tmart orders through route optimization...<br>
+          <span style="opacity:0.7">Impact: 15% cost reduction target</span>
+        </div>
+        &#128073; <strong>Please update your submission</strong> with the additional details requested:<br>
+        <a href="#" style="color:var(--orange);font-weight:600;font-size:12px">Open Intake Sheet</a>
+      </div>
+      <div class="dm-msg dm-user">
+        <div class="sender">Submitter</div>
+        Target: 15% cost reduction by Q3.<br>
+        Timeline: 8 weeks from approval.
+      </div>
+      <div class="dm-action">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+        Submitter replies directly — bot captures context
+      </div>
+    </div>
+  </div>
+
+  <div class="dm-container" style="margin-top:20px">
+    <div class="dm-thread reveal reveal-delay-2">
+      <h4><span class="dot" style="background:var(--purple)"></span> In Review</h4>
+      <div class="dm-msg dm-bot">
+        <div class="sender">Intake Bot</div>
+        &#128270; <strong>Your initiative is now under review</strong><br><br>
+        <code style="background:var(--burgundy);color:var(--cream);padding:3px 8px;border-radius:4px;font-size:12px">Reduce delivery cost for tmart</code><br>
+        <em style="opacity:0.6;font-size:12px">Bet: 2/Experience</em><br><br>
+        &#128101; <strong>Reviewers</strong><br>
+        &bull; Product Owner: Bipin Kumar<br>
+        &bull; CBO: Kedar Kulkarni<br><br>
+        <span style="opacity:0.7;font-size:12px">We'll notify you as soon as a decision is reached. No action needed.</span>
+      </div>
+    </div>
+
+    <div class="dm-thread reveal reveal-delay-3">
+      <h4><span class="dot" style="background:#2e7d32"></span> Accepted</h4>
+      <div class="dm-msg dm-bot">
+        <div class="sender">Intake Bot</div>
+        &#127881; <strong>Great news — your initiative has been accepted!</strong><br><br>
+        <code style="background:var(--burgundy);color:var(--cream);padding:3px 8px;border-radius:4px;font-size:12px">Reduce delivery cost for tmart</code><br>
+        <em style="opacity:0.6;font-size:12px">Bet: 2/Experience</em><br><br>
+        &#128101; <strong>Your team</strong><br>
+        &bull; Product Owner: Bipin Kumar<br>
+        &bull; Product Tribe: Rose Marsh<br>
+        &bull; CBO: Kedar Kulkarni<br><br>
+        &#9654;&#65039; <strong>What happens next</strong><br>
+        <span style="opacity:0.7;font-size:12px">The product owner will reach out to kick off scoping. No action needed from you right now.</span>
+      </div>
+      <div class="dm-action" style="background:#2e7d32">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#fff"/></svg>
+        <span style="color:#fff">Initiative moves to execution — PO reaches out for scoping</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCORING FRAMEWORK -->
+<section id="scoring">
+  <div class="stitle reveal">Prioritisation</div>
+  <h2 class="reveal"><span>Scoring</span> Framework</h2>
+  <p class="subtitle reveal">Each intake opportunity is scored across 3 weighted dimensions. Scores range from 1–5 and produce a weighted total out of 5.0.</p>
+
+  <div class="score-dims reveal">
+    <div class="score-dim">
+      <h4>Strategic Impact</h4>
+      <div class="dim-weight">Weight: 50%</div>
+      <table>
+        <tr><th>Score</th><th>Criteria</th></tr>
+        <tr><td>5</td><td>GMV impact &gt; €10M or critical compliance</td></tr>
+        <tr><td>4</td><td>GMV €5M–€10M or major metric lift</td></tr>
+        <tr><td>3</td><td>GMV €1M–€5M or moderate impact</td></tr>
+        <tr><td>2</td><td>GMV &lt; €1M or narrow scope impact</td></tr>
+        <tr><td>1</td><td>No quantified impact</td></tr>
+      </table>
+    </div>
+    <div class="score-dim">
+      <h4>Confidence Level</h4>
+      <div class="dim-weight">Weight: 30%</div>
+      <table>
+        <tr><th>Score</th><th>Criteria</th></tr>
+        <tr><td>5</td><td>Full BC with validated data / A/B tested</td></tr>
+        <tr><td>4</td><td>BC with solid financial projections</td></tr>
+        <tr><td>3</td><td>BC with estimates, some assumptions</td></tr>
+        <tr><td>2</td><td>Rough estimates, no formal BC</td></tr>
+        <tr><td>1</td><td>No data, conceptual only</td></tr>
+      </table>
+    </div>
+    <div class="score-dim">
+      <h4>Business Priority</h4>
+      <div class="dim-weight">Weight: 20%</div>
+      <table>
+        <tr><th>Score</th><th>Criteria</th></tr>
+        <tr><td>5</td><td>Multi-market / regulatory / legal risk</td></tr>
+        <tr><td>4</td><td>Regional scale, multiple functions</td></tr>
+        <tr><td>3</td><td>One market, cross-functional</td></tr>
+        <tr><td>2</td><td>Single team scope</td></tr>
+        <tr><td>1</td><td>Sub-functional nice-to-have</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3 class="reveal" style="font-size:22px;font-weight:700;color:var(--burgundy);margin-bottom:4px">Applied to Current Intakes</h3>
+  <p class="reveal" style="font-size:13px;opacity:0.5;margin-bottom:20px">17 active submissions scored using business case data where available. Sorted by weighted total.</p>
+
+  <div class="score-table-wrap reveal">
+    <table class="score-table" id="scoreTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Opportunity</th>
+          <th>Bet</th>
+          <th>Priority</th>
+          <th style="text-align:center">Impact</th>
+          <th style="text-align:center">Confidence</th>
+          <th style="text-align:center">Biz Priority</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="scoreBody"></tbody>
+    </table>
+  </div>
+
+  <div class="score-legend reveal">
+    <div class="score-legend-item"><div class="dot sv-5"></div> 5 — Exceptional</div>
+    <div class="score-legend-item"><div class="dot sv-4"></div> 4 — Strong</div>
+    <div class="score-legend-item"><div class="dot sv-3"></div> 3 — Moderate</div>
+    <div class="score-legend-item"><div class="dot sv-2"></div> 2 — Low</div>
+    <div class="score-legend-item"><div class="dot sv-1"></div> 1 — Minimal</div>
+  </div>
+</section>
+
+<!-- COUNCIL VIEW -->
+<section id="council">
+  <div class="stitle reveal">Intake Council</div>
+  <h2 class="reveal"><span>Council</span> Meeting View</h2>
+  <p class="subtitle reveal">Pre-scored and tiered. Click any item to see full context — description, business case, comments, OKR mapping. Ready to drive the meeting.</p>
+
+  <div id="councilCards"></div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="stitle reveal">Technical Design</div>
+  <h2 class="reveal"><span>MCP-Native</span> Architecture</h2>
+  <p class="subtitle reveal">No Python scripts, no servers, no infrastructure to maintain. Runs entirely through Claude Code + MCP tools.</p>
+
+  <div class="arch-diagram">
+    <div class="arch-node sheets reveal">
+      <h4>Google Sheets</h4>
+      <ul>
+        <li>Intake Sheet</li>
+        <li>6 Bet Tabs</li>
+        <li>Intake Council</li>
+        <li>OKR Data</li>
+      </ul>
+    </div>
+    <div class="arch-connector reveal reveal-delay-1">
+      <span>Read & Write</span>
+      <div class="arrow-line"></div>
+    </div>
+    <div class="arch-node claude reveal reveal-delay-2">
+      <h4>Claude Code + MCP</h4>
+      <ul>
+        <li>Detect</li>
+        <li>Evaluate</li>
+        <li>Assign</li>
+        <li>Classify & Map</li>
+        <li>Update & Notify</li>
+      </ul>
+    </div>
+    <div class="arch-connector reveal reveal-delay-3">
+      <span>DM via Bot</span>
+      <div class="arrow-line"></div>
+    </div>
+    <div class="arch-node slack reveal reveal-delay-4">
+      <h4>Slack</h4>
+      <ul>
+        <li>DM Submitter</li>
+        <li>Collect replies</li>
+        <li>Write as comments</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="benefits reveal">
+    <div class="benefit">No Python scripts<br>No servers to maintain</div>
+    <div class="benefit">On-demand or scheduled<br>Runs in Claude Code</div>
+    <div class="benefit">Fully auditable<br>All changes in Sheet</div>
+  </div>
+
+  <p style="text-align:center;margin-top:24px;font-size:13px;opacity:0.5;font-style:italic" class="reveal">
+    Supersedes Eoin's Python playbook approach — same outcome, zero infrastructure
+  </p>
+</section>
+
+<!-- ROLLOUT -->
+<section id="rollout">
+  <div class="stitle reveal">Implementation</div>
+  <h2 class="reveal"><span>Rollout</span> Plan</h2>
+  <p class="subtitle reveal">Phased approach from setup to full automation in 5 weeks.</p>
+
+  <div class="timeline">
+    <div class="phase reveal">
+      <h4>Phase 1 — Setup</h4>
+      <div class="week">Week 1</div>
+      <ul>
+        <li>Connect MCP tools (Sheets + Slack)</li>
+        <li>Map stakeholder rules from Intake Council</li>
+        <li>Validate detection & evaluation logic</li>
+      </ul>
+    </div>
+    <div class="phase reveal reveal-delay-1">
+      <h4>Phase 2 — Pilot</h4>
+      <div class="week">Week 2</div>
+      <ul>
+        <li>Run on 1 bet tab only (Choice)</li>
+        <li>Verify stakeholder assignments</li>
+        <li>Collect feedback from council</li>
+      </ul>
+    </div>
+    <div class="phase reveal reveal-delay-2">
+      <h4>Phase 3 — Scale</h4>
+      <div class="week">Weeks 3–4</div>
+      <ul>
+        <li>Expand to all 6 bet tabs</li>
+        <li>Enable Slack DM notifications</li>
+        <li>OKR mapping goes live</li>
+      </ul>
+    </div>
+    <div class="phase reveal reveal-delay-3">
+      <h4>Phase 4 — Automate</h4>
+      <div class="week">Week 5+</div>
+      <ul>
+        <li>Scheduled recurring runs</li>
+        <li>Full autonomy mode</li>
+        <li>Dashboard & reporting</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--burgundy);color:var(--cream);padding:40px 60px;text-align:center;font-size:13px;opacity:0.7">
+  Opportunity Intake AI Automation &bull; Product Ops &bull; talabat 2026
+</footer>
+
+<script>
+const steps = [
+  {title:'Step 1: Classify Opportunity',items:['First step: categorize as New Bet or Optimization','New Bet: brand new initiative, goes to intake council','Optimization: improvement to existing feature or metric','Classification drives downstream steps (OKR mapping only for Optimizations)','Uses description keywords and theme context','Also flags Urgent items for fast-track review']},
+  {title:'Step 2: Detect New Submissions',items:['Scan across 6 bet tabs: Choice, Experience, Value, Ecosystem & Growth, Foundations, No Related Bet','Trigger: Status (col H) is empty or "NEW"','Trigger: CBO (col O) is blank','Trigger: Product Tribe (col P) is blank','Trigger: Product Owner (col R) is blank','Runs on-demand or on schedule']},
+  {title:'Step 3: Quality Evaluation',items:['Required: Description (col G) — at least 2 sentences','Required: Impact estimate (col I) — not blank','Required: Metric (col J) — specified','Required: Doc link (col L) — valid URL','Optional flags: Customer impact, Quality columns, Submitter priority','Outcome: Pass → Ready for Review, Fail → Needs Clarification']},
+  {title:'Step 4: Auto-Assign Stakeholders',items:['Read Theme from column C','Lookup against Intake Council tab','Auto-fill CBO (col O) from row 4','Auto-fill Product Tribe (col P) from row 2','Auto-fill Product Owner / Bet Lead (col R) from row 3','5 theme mappings: Choice, Experience, Value, Ecosystem, Foundations']},
+  {title:'Step 5: Map to OKR',items:['Only triggered for Optimizations (not New Bets)','Scans description for metric keywords','Matches to H1 2026 Objectives (O1–O6)','Identifies the relevant Key Result','Assigns CBO owner from the OKR table','6 objectives covering GMV, Affordability, MAU, tPro, Growth, Experience']},
+  {title:'Step 6: Update Status',items:['Sets status to "Ready for Review" if quality check passes','Sets status to "Needs Clarification" if required fields missing','Records what specific fields are missing','Timestamps the evaluation','Prepares context for the DM notification','Status visible in the intake sheet for council review']},
+  {title:'Step 7: DM Submitter via Bot',items:['Sends Slack DM directly to the submitter (not channel post)','Triggered every time the status changes — not just once','If Ready: confirms review, shows next intake date, assigned CBO','If Needs Info: lists missing fields, asks submitter to reply','Submitter replies to bot with missing details','Bot captures reply and writes as comment in the Sheet row']}
+];
+
+function showStep(i){
+  const panel=document.getElementById('detailPanel');
+  const title=document.getElementById('detailTitle');
+  const list=document.getElementById('detailList');
+  title.textContent=steps[i].title;
+  list.innerHTML=steps[i].items.map(x=>'<li>'+x+'</li>').join('');
+  panel.classList.add('active');
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+  document.querySelectorAll('.pipe-step').forEach((s,j)=>s.style.opacity=j===i?'1':'0.5');
+}
+
+// Bet tabs
+function showBet(id){
+  document.querySelectorAll('.bet-content').forEach(c=>c.style.display='none');
+  document.querySelectorAll('.bet-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('bet-'+id).style.display='block';
+  event.target.classList.add('active');
+}
+
+// Scroll reveal
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})
+},{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// Scoring data — weights: Impact 50%, Confidence 30%, BizPriority 20%
+const scoreData=[
+  {name:'Web Ordering Reactivation',bet:'Ecosystem & Growth',prio:'P0',si:5,conf:5,bp:5,reason:'€21M/month GMV at risk, 1.3M orders, compliance-critical, full BC'},
+  {name:'Banking Visibility',bet:'Value',prio:'P0',si:5,conf:5,bp:4,reason:'€7.5M GMV uplift, bank-funded, validated BC, multi-market'},
+  {name:'Mission Banking',bet:'Value',prio:'P0',si:4,conf:5,bp:4,reason:'€5.75M GMV, €48M projected 2026, full BC with retention data'},
+  {name:'LS Exclusive Deals',bet:'Ecosystem & Growth',prio:'P1',si:5,conf:4,bp:4,reason:'€17.5M incremental GMV, per-market BC, 48% pro adoption'},
+  {name:'LS Loyalty Programs',bet:'Ecosystem & Growth',prio:'P1',si:4,conf:4,bp:4,reason:'€5M–€26M range, BC exists, multi-market growth lever'},
+  {name:'SKU Banking',bet:'Value',prio:'P1',si:3,conf:4,bp:4,reason:'€2.5M GMV, targeted campaigns, solid BC'},
+  {name:'UAE Tax Portal B2B',bet:'Foundations',prio:'P1',si:4,conf:3,bp:5,reason:'>€1M penalty risk, legal/regulatory, multi-entity'},
+  {name:'Oman Tax Portal',bet:'Foundations',prio:'P1',si:3,conf:3,bp:5,reason:'5000 OMR/violation, regulatory compliance, mandatory'},
+  {name:'In-App Digital Invoices tMart QA',bet:'Experience',prio:'P1',si:3,conf:3,bp:3,reason:'€1.8M impact, QA specific, no deep BC'},
+  {name:'Coffee Tile',bet:'Ecosystem & Growth',prio:'P1',si:3,conf:2,bp:3,reason:'Accepted but no financial BC, vertical growth play'},
+  {name:'TOD Swimlane',bet:'Ecosystem & Growth',prio:'P1',si:3,conf:2,bp:3,reason:'Accepted, discovery/conversion, no quantified BC'},
+  {name:'Deal Targeting Pro',bet:'Ecosystem & Growth',prio:'P1',si:3,conf:2,bp:2,reason:'Product Review, no financial data available'},
+  {name:'Exclusive Deals Iraq',bet:'Ecosystem & Growth',prio:'P1',si:2,conf:2,bp:2,reason:'Product Review, single market, no BC'},
+  {name:'Segmented Banking',bet:'Value',prio:'P1',si:2,conf:2,bp:3,reason:'Qualitative BC only, pro retention/personalization'},
+  {name:'Bulk Update Timings Ramadan',bet:'Experience',prio:'P2',si:2,conf:3,bp:2,reason:'254K lost GMV, seasonal, narrow scope'},
+  {name:'Stamps Pro Multiplier',bet:'Ecosystem & Growth',prio:'P1',si:2,conf:2,bp:2,reason:'€74.5K, small impact, Backlog status'},
+  {name:'Rider/Customer Phone Masking',bet:'Experience',prio:'P1',si:1,conf:1,bp:3,reason:'Unquantified, privacy/compliance but no data'},
+  {name:'SD Prime Test',bet:'Ecosystem & Growth',prio:'P2',si:1,conf:2,bp:1,reason:'€30K, experimental, NEW'},
+  {name:'Bank Campaign UX/UI',bet:'Ecosystem & Growth',prio:'P0',si:2,conf:1,bp:2,reason:'Rejected — no BC, UX improvement only'}
+];
+scoreData.forEach(d=>{d.total=Math.round((d.si*0.5+d.conf*0.3+d.bp*0.2)*100)/100});
+scoreData.sort((a,b)=>b.total-a.total);
+const scoreBody=document.getElementById('scoreBody');
+scoreData.forEach((d,i)=>{
+  const pct=Math.round(d.total/5*100);
+  scoreBody.innerHTML+=`<tr>
+    <td class="rank">${i+1}</td>
+    <td class="opp-name">${d.name}</td>
+    <td class="opp-bet">${d.bet}</td>
+    <td style="font-weight:700;font-size:12px">${d.prio}</td>
+    <td style="text-align:center"><span class="score-val sv-${d.si}">${d.si}</span></td>
+    <td style="text-align:center"><span class="score-val sv-${d.conf}">${d.conf}</span></td>
+    <td style="text-align:center"><span class="score-val sv-${d.bp}">${d.bp}</span></td>
+    <td><span class="total-score">${d.total.toFixed(1)}</span><div class="score-bar"><div class="score-bar-fill" style="width:${pct}%"></div></div></td>
+  </tr>`;
+});
+
+// Council View data — full context for each intake
+const councilData=[
+  {name:'Web Ordering Reactivation',bet:'Ecosystem & Growth',prio:'P0',status:'NEW',si:5,conf:5,bp:5,total:5.0,
+   submitter:'Menna Walied',requester:'Marketing',date:'Apr 22, 2026',
+   desc:'Google has issued suspension warnings to our GMC accounts following the discontinuation of web ordering in Q4 2025, citing a missing functional web checkout, a mandatory requirement for all Shopping advertisers. Web ordering reactivation is required to restore compliance and avoid suspension across all active markets.',
+   impact:'€21M/month GMV, 1.3M orders/month, 200K tMart orders at risk',metric:'GMV, Orders, QC Orders, QC MAUs',
+   bc:'https://docs.google.com/document/d/1zX6INsGxjcn2WJ6Um0kZbNgnDSspPLSs/edit',
+   okr:'',comments:[],cbo:'',tribe:'',pm:''},
+  {name:'Banking Visibility',bet:'Value',prio:'P0',status:'NEW',si:5,conf:5,bp:4,total:4.8,
+   submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
+   desc:'Expanding visibility across the app and surfacing offers earlier in the journey can unlock ~€7.5M GMV per year, funded by bank partners.',
+   impact:'€7,500,000',metric:'Affordability',
+   bc:'https://docs.google.com/document/d/1a2AHyjDtn1iPPDtohpm0Sh6mKHRTbeCyMuSC2FsbHdQ/edit',
+   okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
+  {name:'Mission Banking',bet:'Value',prio:'P0',status:'NEW',si:4,conf:5,bp:4,total:4.3,
+   submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
+   desc:'Introducing mission-based campaigns (e.g. "complete 3 orders to unlock reward") can unlock ~€5.75M additional GMV by increasing frequency and retention funded by banks.',
+   impact:'€5,750,000',metric:'Affordability',
+   bc:'https://docs.google.com/document/d/1A-v0CzcyICpIriqkbQT6FQtQQZbOcgTNXjzLJPYPRxc/edit',
+   okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
+  {name:'LS Exclusive Deals',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:5,conf:4,bp:4,total:4.3,
+   submitter:'Harshit Abichandani',requester:'CBO Office',date:'Mar 17, 2026',
+   desc:'Local Shops (LS) vendors currently lack a targeted mechanism to reward high-value pro users, drive incremental frequency and basket size, and differentiate from competitors. Feature: LS exclusive deals, enabling LS vendors to offer pro-only discounts, similar to Food and tmart.',
+   impact:'€17,500,000',metric:'Exclusive deals savings as % of total pro savings',
+   bc:'https://docs.google.com/document/d/1Z_fEWgUukWwWS3En8TGQGIGEt-4boDfobvbSA6WhvFw/edit',
+   okr:'O4. Grow tPro — Pro Exclusive Deals Swimlane on tMart Home. PM: Leen Ashqar',
+   comments:['Q2 — Validation. Only 3PL integrated by August. Q3 rollout.'],cbo:'Hussein Daher',tribe:'Sofia Simões de Almeida',pm:'Howaida Thabet'},
+  {name:'LS Loyalty Programs',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:4,conf:4,bp:4,total:4.0,
+   submitter:'Vipul Gajbhiye',requester:'Grocery & Retail',date:'Mar 16, 2026',
+   desc:'Talabat currently does not support LS partner loyalty programs, creating a value gap versus offline shopping and competitors already enabling loyalty parity. Competitor benchmarks (Glovo, Snoonu–Monoprix) indicate loyalty integration can materially impact retention, frequency, and partner share. Just one loyalty integration by competition (Snoonu–Monoprix) led to ~24K orders and ~€600K GMV lost/month in Qatar.',
+   impact:'€5M to €26M annual GMV (realistic to optimistic)',metric:'GMV',
+   bc:'',bcTitle:'Enabling Partner Loyalty Cards [talabat]',
+   okr:'O4.KR3 — cashback & loyalty mechanics. PM: Leen Ashqar',
+   comments:[],cbo:'Hussein Daher',tribe:'Sofia Simões de Almeida',pm:'Howaida Thabet'},
+  {name:'SKU Banking',bet:'Value',prio:'P1',status:'NEW',si:3,conf:4,bp:4,total:3.5,
+   submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
+   desc:'Banks are increasingly seeking targeted, differentiated campaigns tied to specific products, brands, or vendors. Current platform limitations prevent this. Enabling SKU and vendor-level targeting unlocks ~€2.5M additional GMV and allows highly strategic campaign execution.',
+   impact:'€2,500,000',metric:'Affordability',
+   bc:'https://docs.google.com/document/d/1zGX-l3Y1I83fD3kKjoMoKduVP8uPXyv6kXxXTlWAKAA/edit',
+   okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
+  {name:'UAE Tax Portal B2B',bet:'Foundations',prio:'P1',status:'NEW',si:4,conf:3,bp:5,total:3.9,
+   submitter:'Noha Bashtar',requester:'Finance',date:'Apr 3, 2026',
+   desc:'Building the integration for B2B tax portal in UAE, likely fulfilling any mandatory field in the integration between billing and ERP.',
+   impact:'>€1M penalty for failing to meet the target',metric:'Avoid penalty risk',
+   bc:'https://docs.google.com/document/d/1bynnQRCdVZJoiUnkQJOtCamgSHsbFprUU_X1pypGof0/edit',
+   okr:'O9. Foundations — Tax/compliance. Legal/regulatory requirement.',
+   comments:[],cbo:'',tribe:'Sofia Simões de Almeida',pm:'Bipin Kumar'},
+  {name:'Oman Tax Portal',bet:'Foundations',prio:'P1',status:'NEW',si:3,conf:3,bp:5,total:3.4,
+   submitter:'Noha Bashtar',requester:'Finance',date:'Apr 3, 2026',
+   desc:'Building the tax portal integration in Oman for B2B and B2C invoices.',
+   impact:'5000 OMR per violation/invoice',metric:'Compliance',
+   bc:'https://docs.google.com/document/d/17AbGO6uJQodiOfXYTSNG6RkQLcENpMvmn-355KwS3DY/edit',
+   okr:'O9. Foundations — Tax/compliance. Legal/regulatory requirement.',
+   comments:[],cbo:'',tribe:'Sofia Simões de Almeida',pm:'Bipin Kumar'},
+  {name:'In-App Digital Invoices tMart QA',bet:'Experience',prio:'P1',status:'Needs Clarification',si:3,conf:3,bp:3,total:3.0,
+   submitter:'Kuldeep Singh',requester:'Grocery & Retail',date:'Apr 7, 2026',
+   desc:'Currently, tMart teams in Qatar manually print physical invoices for every order. This process introduces a severe operational bottleneck, directly degrading our 15-minute DT SLA and operational costs. While physical invoices are not legally required by MOCI, they are retained to maintain customer trust. Proposal: transition to In-App Digital Invoices.',
+   impact:'€1.8M',metric:'Order Prep time & Delivery Time by ~40 seconds',
+   bc:'',bcTitle:'In-App Digital Invoices for tMart (QA)',
+   okr:'O9 Foundations (operational improvement)',
+   comments:[{author:'Miriam Velloso',text:'@alvaro.garcia can you review this request, and let us know if this is a regional request or just for QA?'}],
+   cbo:'Alvaro Garcia Leal',tribe:'Sofia Simões de Almeida',pm:'Bipin Kumar'},
+  {name:'Coffee Tile',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:3,conf:2,bp:3,total:2.7,
+   submitter:'(Marketing)',requester:'Marketing',date:'Mar 18, 2026',
+   desc:'Strong growth in coffee category, with EDR driving significant share. Proposal: test a time-based "Coffee" tile on homescreen during high-intent windows (morning, post-lunch) to increase visibility and drive incremental orders.',
+   impact:'Not quantified',metric:'Coffee orders / GMV',
+   bc:'',bcTitle:'UAE: Test "Coffee" Tile on Homescreen',
+   okr:'ALREADY COVERED: O6.KR2 → TLBVAL-5 Coffee Tile Time-Based Experiment (UAE) — In Progress. PM: Adrian Alvarez',
+   comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Emily Thomas',pm:'Adrian Alvarez'},
+  {name:'TOD Swimlane',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:3,conf:2,bp:3,total:2.7,
+   submitter:'Omar Ezz',requester:'Marketing',date:'Apr 1, 2026',
+   desc:'Capitalizing on the swimlane along with wider marketing channels to support the time-of-day strategy itself.',
+   impact:'Need assistance on financial incrementality',metric:'Time of day orders spike, UTR, Frequency',
+   bc:'',bcTitle:'TOD Swimlane',
+   okr:'O6.KR2 (Time-context relevance on Home). Related to Coffee Tile & TOD initiatives. PM: Adrian Alvarez',
+   comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Emily Thomas',pm:'Adrian Alvarez'},
+  {name:'Deal Targeting Pro',bet:'Ecosystem & Growth',prio:'P1',status:'Product Review',si:3,conf:2,bp:2,total:2.5,
+   submitter:'Prashasti Nagpal',requester:'CBO Office',date:'Apr 1, 2026',
+   desc:'Current pro deals drive high engagement but are becoming increasingly inefficient as an acquisition tool. Proposal: implement deal targeting to convert active, in-session users. Layer targeted "boosters" on top of current incentivized topline campaigns. Starting with 10% or 20% boosters with A/B grade vendors, leveraging VFD component.',
+   impact:'+500 new pro users/month, CPA €2.41',metric:'Pro acquisitions',
+   bc:'https://docs.google.com/spreadsheets/d/18ngrwg5bZhLCIRJCMEYVcE7XEygqYr6574VhiUv-8eI',
+   okr:'O4. Grow tPro → KR1 (Reduce triggered churn). PM: Leen Ashqar',
+   comments:[],cbo:'Hussein Daher',tribe:'',pm:''},
+  {name:'Exclusive Deals Iraq',bet:'Ecosystem & Growth',prio:'P1',status:'Product Review',si:2,conf:2,bp:2,total:2.0,
+   submitter:'Ashish Atree',requester:'Partner Growth',date:'Apr 7, 2026',
+   desc:'Planning to launch Exclusive deals to new customers in Iraq. Need help to prioritize the effort on Swimlane integration.',
+   impact:'NA',metric:'New customer acquisition',
+   bc:'',
+   okr:'O3. Boost QC MAU. PM: Howaida',
+   comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Sofia Simões de Almeida',pm:''},
+  {name:'Segmented Banking',bet:'Value',prio:'P1',status:'NEW',si:2,conf:2,bp:3,total:2.2,
+   submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
+   desc:'Enabling differentiated offers by segment allows better targeting and ROI optimization. Unlocks stronger personalization and supports pro value proposition and retention.',
+   impact:'Not quantified',metric:'Pro acquisition, retention',
+   bc:'https://docs.google.com/document/d/1ERbnZlvxVyawjeGynngzgoyIbwCKYAK_bLZmd9-SDkI/edit',
+   okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
+  {name:'Bulk Update Timings Ramadan',bet:'Experience',prio:'P2',status:'NEW',si:2,conf:3,bp:2,total:2.3,
+   submitter:'Mohamed Atef',requester:'Grocery & Retail',date:'Apr 22, 2026',
+   desc:'The current manual update of timings during Ramadan for 8,000 branches is inefficient, consuming 173 hours per cycle and causing a 62% spike in cancellations due to timing errors. This results in 254K lost GMV during the first week alone. Implementing a bulk CSV upload tool will reduce manual labor by 65%, saving 113 hours annually.',
+   impact:'254K lost GMV first week, 62% cancellation spike',metric:'Lost GMV due to wrong timings',
+   bc:'',bcTitle:'BC| Bulk Branch Timing Automation: Reducing Update Time by 65% | Q2 26',
+   okr:'',comments:[],cbo:'Khee Lim / Aanchal Kotwaney',tribe:'Rose Marsh',pm:''},
+  {name:'Stamps Pro Multiplier',bet:'Ecosystem & Growth',prio:'P1',status:'Backlog',si:2,conf:2,bp:2,total:2.0,
+   submitter:'Prashasti Nagpal',requester:'CBO Office',date:'Apr 1, 2026',
+   desc:'Introduce a 2x voucher multiplier for pro users who successfully collect 3 stamps on eligible chains. Fully funded by talabat. Hypothesis: higher voucher value drives incremental topline by increasing funnel entries and completion rates among pro users. ~50% platform cannibalization assumed.',
+   impact:'€74,508',metric:'Pro user frequency and platform topline',
+   bc:'https://docs.google.com/spreadsheets/d/16g6YIzAzpq5B0Gpupi7UEqpvWcw8k2XtvLE3xe_Fk7o/edit',
+   okr:'O4. Grow tPro → KR1 / O5 → KR1 (Missions frequency). PM: Leen Ashqar / Howaida Thabet',
+   comments:[],cbo:'Hussein Daher',tribe:'Leen Ashqar',pm:''},
+  {name:'Rider/Customer Phone Masking',bet:'Experience',prio:'P1',status:'Needs Clarification',si:1,conf:1,bp:3,total:1.4,
+   submitter:'Abdou',requester:'Commercial',date:'Mar 9, 2026',
+   desc:'A meaningful share of Net Failed Orders is driven by cases where the customer does not respond at delivery time and the rider cannot reliably contact them. This creates recurring operational leakage across GMV, vendor refunds, rider time, and support effort. The issue is concentrated in specific segments — Food, Cash, and international phone numbers.',
+   impact:'Significant portion of Net Failed Orders (unquantified)',metric:'Net Fail Rate / Customer Fail rate / Lost GMV',
+   bc:'',bcTitle:'UAE | Rider / Customer Phone Masking',
+   okr:'O2. Redefine Customer & Partner peace of mind → KR1 (contact rate) / KR2 (deflected sessions). PM: Islam Ameen',
+   comments:[{author:'Miriam Velloso',text:'@aanchal.kotwaney could you take a look at this intake request and let us know if it\'s something we should pick up? If so, is this a regional issue or UAE-specific?'}],
+   cbo:'Khee Lim / Aanchal Kotwaney',tribe:'Islam Ameen',pm:''},
+  {name:'SD Prime Test',bet:'Ecosystem & Growth',prio:'P2',status:'NEW',si:1,conf:2,bp:1,total:1.3,
+   submitter:'Shaheem Rafeeque',requester:'Sales',date:'Apr 21, 2026',
+   desc:'The goal is to see how specific user behavior shifts when we simplify the promotional environment. Target: high-value, discount-driven users who prefer Sponsored Deals. Test: exclusively expose to SD (Boosted and Non-Boosted), no other item-level discounts.',
+   impact:'€30,000',metric:'NCR',
+   bc:'',
+   okr:'',comments:[],cbo:'',tribe:'',pm:''},
+  {name:'Bank Campaign UX/UI',bet:'Ecosystem & Growth',prio:'P0',status:'Rejected',si:2,conf:1,bp:2,total:1.7,
+   submitter:'(Marketing)',requester:'Marketing',date:'Mar 17, 2026',
+   desc:'Running multiple bank-funded voucher campaigns split across different days to manage daily redemption caps. Users have learned timing, leading to vouchers consumed within seconds. Looking to introduce usage restrictions for fair distribution.',
+   impact:'€1M+ revenue, 800K+ orders',metric:'UX/UI improvement',
+   bc:'',bcTitle:'Product Opportunity Submission - UI/UX journey for Banking partnerships',
+   okr:'Shared P&T → Drive incremental GMV (Voucher visibility). No specific KR.',
+   comments:['Delete by the requester'],cbo:'Kedar Kulkarni / Alvaro Martinez Espinosa',tribe:'',pm:''}
+];
+
+function renderCouncil(){
+  const container=document.getElementById('councilCards');
+  const tiers=[
+    {label:'Fast-Track',cls:'fast',badge:'fast',items:councilData.filter(d=>d.total>=4.0)},
+    {label:'Discuss',cls:'discuss',badge:'discuss',items:councilData.filter(d=>d.total>=2.5&&d.total<4.0)},
+    {label:'Defer / Next Quarter',cls:'defer',badge:'defer',items:councilData.filter(d=>d.total<2.5)}
+  ];
+  let html='';
+  tiers.forEach(t=>{
+    html+=`<div class="tier-label reveal"><span class="tier-badge ${t.badge}">${t.label}</span><h3>${t.label}</h3><span class="tier-count">${t.items.length} item${t.items.length!==1?'s':''}</span></div>`;
+    t.items.sort((a,b)=>b.total-a.total);
+    t.items.forEach((d,i)=>{
+      const svCls=v=>'sv-'+Math.min(5,Math.max(1,v));
+      const statusColor={'NEW':'#FF5900','Accepted':'#2e7d32','Needs Clarification':'#e65100','Product Review':'#8318D8','Backlog':'#9e9e9e','Rejected':'#c62828','Intake process accepted':'#2e7d32'}[d.status]||'#9e9e9e';
+      html+=`<div class="council-card ${t.cls}" onclick="toggleCouncil(this)">
+        <div class="council-header">
+          <div class="council-rank" style="background:${t.badge==='fast'?'#2e7d32':t.badge==='discuss'?'var(--orange)':'#9e9e9e'}">${councilData.indexOf(d)+1}</div>
+          <div class="council-info">
+            <div class="council-name">${d.name}</div>
+            <div class="council-meta">
+              <span class="cm-bet">${d.bet}</span>
+              <span class="cm-prio" style="background:${d.prio==='P0'?'var(--orange)':'var(--burgundy)'}">${d.prio}</span>
+              <span class="cm-status" style="background:${statusColor}15;color:${statusColor}">${d.status}</span>
+            </div>
+          </div>
+          <div class="council-score"><div class="cs-val">${d.total.toFixed(1)}</div><div class="cs-label">/ 5.0</div></div>
+          <div class="council-chevron">&#9660;</div>
+        </div>
+        <div class="council-detail">
+          <div class="cd-section"><h5>Description</h5><p>${d.desc}</p></div>
+          <div class="cd-grid" style="margin-top:14px">
+            <div class="cd-field"><strong>Impact</strong>${d.impact||'Not provided'}</div>
+            <div class="cd-field"><strong>Metric</strong>${d.metric||'—'}</div>
+            <div class="cd-field"><strong>Submitter</strong>${d.submitter} (${d.requester})</div>
+            <div class="cd-field"><strong>Submitted</strong>${d.date}</div>
+            ${d.cbo?`<div class="cd-field"><strong>CBO</strong>${d.cbo}</div>`:'<div class="cd-field"><strong>CBO</strong><em style="opacity:0.4">Not assigned</em></div>'}
+            ${d.tribe?`<div class="cd-field"><strong>Product Tribe</strong>${d.tribe}</div>`:''}
+            ${d.pm?`<div class="cd-field"><strong>Product Owner</strong>${d.pm}</div>`:''}
+          </div>
+          <div class="cd-section" style="margin-top:14px"><h5>Scoring Breakdown</h5>
+            <div class="cd-scores">
+              <div class="cd-score-pill"><div class="pill-val ${svCls(d.si)}">${d.si}</div>Impact</div>
+              <div class="cd-score-pill"><div class="pill-val ${svCls(d.conf)}">${d.conf}</div>Confidence</div>
+              <div class="cd-score-pill"><div class="pill-val ${svCls(d.bp)}">${d.bp}</div>Biz Priority</div>
+            </div>
+          </div>
+          ${d.okr?`<div class="cd-section"><h5>OKR Mapping</h5><div class="cd-okr">${d.okr}</div></div>`:''}
+          ${d.comments&&d.comments.length?`<div class="cd-section"><h5>Comments</h5>${d.comments.map(c=>typeof c==='string'?`<div class="cd-comment">${c}</div>`:`<div class="cd-comment"><div class="cc-author">${c.author}</div>${c.text}</div>`).join('')}</div>`:''}
+          ${d.bc?`<div class="cd-section"><a class="cd-link" href="${d.bc}" target="_blank">&#128196; Open Business Case</a></div>`:''}
+        </div>
+      </div>`;
+    });
+  });
+  container.innerHTML=html;
+  container.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+}
+function toggleCouncil(card){card.classList.toggle('open')}
+renderCouncil();
+
+// Nav active state
+const sections=document.querySelectorAll('section');
+const navLinks=document.querySelectorAll('nav a');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)current=s.id});
+  navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+current)});
+});
+</script>
+</body>
+</html>
