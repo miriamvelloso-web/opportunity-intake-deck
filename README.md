@@ -9,12 +9,12 @@ End-to-end automation of the talabat Product & Tech Opportunity Intake process. 
 |---|-----------|--------|-------------|
 | 1 | **Presentation Deck** | Done | `index.html` — 9-section HTML deck with pipeline, scoring, OKR mapping, bot flow |
 | 2 | **Slack DM Bot** | Done | Apps Script, hourly trigger, 8 message templates. Sends DMs to submitters when status changes |
-| 3 | **Classify** (New Bet vs Optimization) | In progress | AI reads description → classifies. Optimizations get OKR mapping; New Bets go to council |
-| 4 | **Detect unassigned rows** | In progress | Scans 6 bet tabs for Status = "NEW" or empty |
-| 5 | **Quality evaluation** | In progress | Checks 4 required fields: Description, Impact, Metric, Documents |
-| 6 | **Auto-assign stakeholders** | In progress | Fills CBO + Product Tribe from Intake Council mapping |
-| 7 | **OKR mapping** | In progress | Matches optimization keywords to 10 Q2 2026 P&T objectives |
-| 8 | **Auto-set status** | In progress | Quality PASS → "Ready for Review", FAIL → "Needs Clarification" |
+| 3 | **Classify** (New Bet vs Optimization) | Done | AI reads description → classifies. Optimizations get OKR mapping; New Bets go to council |
+| 4 | **Detect unassigned rows** | Done | Scans 6 bet tabs for Status = "NEW" or empty |
+| 5 | **Quality evaluation** | Done | Checks 4 required fields: Description, Impact, Metric, Documents |
+| 6 | **Auto-assign stakeholders** | Done | Fills CBO + Product Tribe from Intake Council mapping |
+| 7 | **OKR mapping** | Done | Matches optimization keywords to 10 Q2 2026 P&T objectives |
+| 8 | **Auto-set status** | Done | Quality PASS → "Ready for Review", FAIL → "Needs Clarification" |
 | 9 | **Interactive replies** | Not started | Submitter replies to bot DM → bot writes comments in Sheet |
 | 10 | **Scoring engine** | Designed | 3 dimensions (Strategic 50%, Confidence 30%, Priority 20%) — in deck, not yet coded |
 
