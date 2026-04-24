@@ -769,7 +769,7 @@ h2 span{color:var(--orange)}
 
 <script>
 const steps = [
-  {title:'Step 1: Classify Opportunity',items:['First step: categorize as New Bet or Optimization','New Bet: brand new initiative, goes to intake council','Optimization: improvement to existing feature or metric','Classification drives downstream steps (OKR mapping only for Optimizations)','Uses description keywords and theme context','Also flags Urgent items for fast-track review']},
+  {title:'Step 1: Classify Opportunity',items:['First step: categorize as New Bet or Optimization','New Bet: brand new initiative, goes to intake council','Optimization: improvement to existing feature or metric','Classification drives downstream steps (OKR mapping only for Optimizations)','Uses description keywords and theme context','Urgent items can be manually fast-tracked by council (separate from scoring)']},
   {title:'Step 2: Detect New Submissions',items:['Scan across 6 bet tabs: Choice, Experience, Value, Ecosystem & Growth, Foundations, No Related Bet','Trigger: Status (col H) is empty or "NEW"','Trigger: CBO (col O) is blank','Trigger: Product Tribe (col P) is blank','Trigger: Product Owner (col R) is blank','Runs on-demand or on schedule']},
   {title:'Step 3: Quality Evaluation',items:['Required: Description (col G) — at least 2 sentences','Required: Impact estimate (col I) — not blank','Required: Metric (col J) — specified','Required: Doc link (col L) — valid URL','Optional flags: Customer impact, Quality columns, Submitter priority','Outcome: Pass → Ready for Review, Fail → Needs Clarification']},
   {title:'Step 4: Auto-Assign Stakeholders',items:['Read Theme from column C','Lookup against Intake Council tab','Auto-fill CBO (col O) from row 4','Auto-fill Product Tribe (col P) from row 2','Auto-fill Product Owner / Bet Lead (col R) from row 3','5 theme mappings: Choice, Experience, Value, Ecosystem, Foundations']},
@@ -977,7 +977,7 @@ const councilData=[
 function renderCouncil(){
   const container=document.getElementById('councilCards');
   const tiers=[
-    {label:'Fast-Track',cls:'fast',badge:'fast',items:councilData.filter(d=>d.total>=4.0)},
+    {label:'Prioritize',cls:'fast',badge:'fast',items:councilData.filter(d=>d.total>=4.0)},
     {label:'Discuss',cls:'discuss',badge:'discuss',items:councilData.filter(d=>d.total>=2.5&&d.total<4.0)},
     {label:'Defer / Next Quarter',cls:'defer',badge:'defer',items:councilData.filter(d=>d.total<2.5)}
   ];

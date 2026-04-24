@@ -16,12 +16,59 @@ End-to-end automation of the talabat Product & Tech Opportunity Intake process. 
 | 7 | **OKR mapping** | Done | Matches optimization keywords to 10 Q2 2026 P&T objectives |
 | 8 | **Auto-set status** | Done | Quality PASS → "Ready for Review", FAIL → "Needs Clarification" |
 | 9 | **Interactive replies** | Not started | Submitter replies to bot DM → bot writes comments in Sheet |
-| 10 | **Scoring engine** | Designed | 3 dimensions (Strategic 50%, Confidence 30%, Priority 20%) — in deck, not yet coded |
+| 10 | **Scoring engine** | Done | 3 dimensions (Strategic 50%, Confidence 30%, Priority 20%) — skill `intake-score`, writes to columns S–X |
 
-## How the pipeline works
+## End-to-end flow
+
+When someone submits a new opportunity, here's what happens:
+
+### Step 1 — Submission
+Someone fills in a row on one of the 6 bet tabs in the Intake Sheet. Status is blank or "NEW".
+
+### Step 2 — Triage (skill: `intake-triage`)
+1. **Classify** — AI reads the description and decides: New Bet or Optimization
+2. **Quality gate** — checks 4 required fields:
+   - Description (50+ characters)
+   - Impact (contains a number or quantified estimate)
+   - Metric (names a real metric: GMV, MAU, NCR, etc.)
+   - Related Documents (has a URL or explicitly says "NA")
+3. **If all 4 pass** → auto-assigns CBO + Product Tribe from the Intake Council mapping, sets status to **"Ready for Review"**
+4. **If any fail** → sets status to **"Needs Clarification"**, lists which fields need fixing
+5. If classified as Optimization → maps to the matching Q2 2026 P&T OKR (informational, not written to sheet)
+
+### Step 3 — Bot notification (automatic, hourly)
+The Slack bot detects the status change and DMs the submitter:
+- **Ready for Review** → tells them it's queued for council, who's assigned, when next intake session is
+- **Needs Clarification** → tells them exactly which fields to fix
+
+### Step 4 — Scoring (skill: `intake-score`)
+For rows that passed triage ("Ready for Review"), AI scores on 3 weighted dimensions:
+- **Strategic Impact (50%)** — how big is the business impact (GMV, compliance, etc.)
+- **Confidence Level (30%)** — how solid is the supporting evidence (BC, data, A/B tests)
+- **Business Priority (20%)** — how broad is the scope (multi-market vs single team)
+
+Writes scores to columns S–X: 3 sub-scores (1–5), total out of 5.0, tier, and a 1-line rationale.
+
+**Auto-assigned tiers:**
+- **Prioritize** (>= 4.0) — strong case, recommend council approval
+- **Discuss** (2.5–3.9) — needs council review and discussion
+- **Defer** (< 2.5) — lower priority, next quarter or deprioritize
+
+### Step 5 — Intake Council (manual)
+Council reviews scored submissions and sets status to one of:
+- **Accepted** — approved, moves to product team
+- **Rejected** — declined with reason
+- **Backlog** — parked for future consideration
+- **Product Review** — needs deeper product assessment
+- **Fast-Track** — manual override for urgent requests (independent of score)
+
+### Step 6 — Bot notifies outcome (automatic)
+Whatever the council decides, the bot picks up the status change and DMs the submitter with the result.
+
+### Flow diagram
 
 ```
-New submission lands in Intake Sheet (any of 6 bet tabs)
+Submission lands in Intake Sheet (any of 6 bet tabs)
         │
         ▼
    ┌─────────────┐
@@ -30,7 +77,7 @@ New submission lands in Intake Sheet (any of 6 bet tabs)
    └──────┬──────┘
           ▼
    ┌─────────────┐
-   │  Classify    │  New Bet vs Optimization (AI judgment)
+   │  Classify    │  New Bet vs Optimization
    └──────┬──────┘
           ▼
    ┌─────────────┐
@@ -45,26 +92,39 @@ New submission lands in Intake Sheet (any of 6 bet tabs)
     ▼           ▼
 ┌────────┐  ┌──────────────────┐
 │ Assign │  │ Needs Clarification│
-│ CBO +  │  │ (list missing      │
-│ Tribe  │  │  fields in DM)     │
-└───┬────┘  └────────┬──────────┘
-    │                │
-    ▼                │
-┌────────┐           │
-│ OKR    │           │
-│ Map    │ (optim.   │
-│        │  only)    │
-└───┬────┘           │
-    │                │
-    ▼                ▼
-┌────────────────────────┐
-│  Set Status in Sheet   │  "Ready for Review" or "Needs Clarification"
-└───────────┬────────────┘
+│ CBO +  │  │ (bot DMs submitter │
+│ Tribe  │  │  with missing fields)│
+└───┬────┘  └──────────────────┘
+    │
+    ▼
+┌────────┐
+│ OKR    │  (optimizations only)
+│ Map    │
+└───┬────┘
+    │
+    ▼
+┌──────────────────────────┐
+│  Status → Ready for Review│
+└───────────┬──────────────┘
             ▼
-┌────────────────────────┐
-│  Intake Bot detects    │  Hourly Apps Script trigger
-│  status change → DM   │  Sends Slack DM to submitter
-└────────────────────────┘
+┌──────────────────────────┐
+│  Bot DMs submitter       │  Hourly trigger
+└───────────┬──────────────┘
+            ▼
+┌──────────────────────────┐
+│  Score (3 dimensions)    │  Strategic + Confidence + Priority
+│  Assign tier             │  Prioritize / Discuss / Defer
+└───────────┬──────────────┘
+            ▼
+┌──────────────────────────┐
+│  Intake Council reviews  │  Manual decision
+│  Sets final status       │  Accepted / Rejected / Backlog /
+│                          │  Product Review / Fast-Track
+└───────────┬──────────────┘
+            ▼
+┌──────────────────────────┐
+│  Bot DMs submitter       │  Final outcome notification
+└──────────────────────────┘
 ```
 
 ## Key resources
@@ -97,7 +157,7 @@ New submission lands in Intake Sheet (any of 6 bet tabs)
 
 **All 4 must pass** → "Ready for Review". Any fail → "Needs Clarification" with specific fields listed in the DM.
 
-## Scoring dimensions (designed, not yet coded)
+## Scoring (skill: `intake-score`, columns S–X)
 
 | Dimension | Weight | 5 = Best | 1 = Worst |
 |-----------|--------|----------|-----------|
@@ -107,11 +167,16 @@ New submission lands in Intake Sheet (any of 6 bet tabs)
 
 **Formula**: `(Strategic × 0.5) + (Confidence × 0.3) + (Priority × 0.2)` → score out of 5.0
 
+**Auto-assigned tiers**: Prioritize (>= 4.0) | Discuss (2.5–3.9) | Defer (< 2.5)
+
+**Fast-Track** is a manual council decision for urgent requests — not score-based, never auto-assigned.
+
 ## Tech stack
 
 - **Presentation**: Single-file HTML (`index.html`), talabat brand colors, no framework
 - **Slack Bot**: Google Apps Script (`Code.gs`), `chat.postMessage` API, hourly trigger
-- **Triage Pipeline**: Claude Code skill (MCP tools), reads/writes Google Sheets directly
+- **Triage Pipeline**: Claude Code skill (`intake-triage`), reads/writes Google Sheets via MCP
+- **Scoring Engine**: Claude Code skill (`intake-score`), scores and writes to columns S–X via MCP
 - **No Python, no servers, no databases** — everything runs through Google Sheets + Slack APIs
 
 ## File structure
