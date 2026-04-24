@@ -582,19 +582,19 @@ h2 span{color:var(--orange)}
 <section id="scoring">
   <div class="stitle reveal">Prioritisation</div>
   <h2 class="reveal"><span>Scoring</span> Framework</h2>
-  <p class="subtitle reveal">Each intake opportunity is scored across 3 weighted dimensions. Scores range from 1–5 and produce a weighted total out of 5.0.</p>
+  <p class="subtitle reveal">Each intake opportunity is scored across 3 weighted dimensions. Strategic Impact thresholds are calibrated against actual annual impact data from P&T OKR Key Results (Q3–Q1 Y25–Y26). Scores range 1–5, producing a weighted total out of 5.0.</p>
 
   <div class="score-dims reveal">
     <div class="score-dim">
       <h4>Strategic Impact</h4>
-      <div class="dim-weight">Weight: 50%</div>
+      <div class="dim-weight">Weight: 50% &bull; Calibrated from P&T OKR actuals (median €7.6M)</div>
       <table>
         <tr><th>Score</th><th>Criteria</th></tr>
-        <tr><td>5</td><td>GMV impact &gt; €10M or critical compliance</td></tr>
-        <tr><td>4</td><td>GMV €5M–€10M or major metric lift</td></tr>
-        <tr><td>3</td><td>GMV €1M–€5M or moderate impact</td></tr>
-        <tr><td>2</td><td>GMV &lt; €1M or narrow scope impact</td></tr>
-        <tr><td>1</td><td>No quantified impact</td></tr>
+        <tr><td>5</td><td>Annual impact &gt; €15M or critical regulatory risk</td></tr>
+        <tr><td>4</td><td>Annual impact €7M–€15M or major compliance</td></tr>
+        <tr><td>3</td><td>Annual impact €3M–€7M or moderate impact</td></tr>
+        <tr><td>2</td><td>Annual impact €1M–€3M or narrow scope</td></tr>
+        <tr><td>1</td><td>Annual impact &lt; €1M or not quantified</td></tr>
       </table>
     </div>
     <div class="score-dim">
@@ -806,24 +806,24 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 // Scoring data — weights: Impact 50%, Confidence 30%, BizPriority 20%
 const scoreData=[
   {name:'Web Ordering Reactivation',bet:'Ecosystem & Growth',prio:'P0',si:5,conf:5,bp:5,reason:'€21M/month GMV at risk, 1.3M orders, compliance-critical, full BC'},
-  {name:'Banking Visibility',bet:'Value',prio:'P0',si:5,conf:5,bp:4,reason:'€7.5M GMV uplift, bank-funded, validated BC, multi-market'},
-  {name:'Mission Banking',bet:'Value',prio:'P0',si:4,conf:5,bp:4,reason:'€5.75M GMV, €48M projected 2026, full BC with retention data'},
-  {name:'LS Exclusive Deals',bet:'Ecosystem & Growth',prio:'P1',si:5,conf:4,bp:4,reason:'€17.5M incremental GMV, per-market BC, 48% pro adoption'},
-  {name:'LS Loyalty Programs',bet:'Ecosystem & Growth',prio:'P1',si:4,conf:4,bp:4,reason:'€5M–€26M range, BC exists, multi-market growth lever'},
-  {name:'SKU Banking',bet:'Value',prio:'P1',si:3,conf:4,bp:4,reason:'€2.5M GMV, targeted campaigns, solid BC'},
-  {name:'UAE Tax Portal B2B',bet:'Foundations',prio:'P1',si:4,conf:3,bp:5,reason:'>€1M penalty risk, legal/regulatory, multi-entity'},
-  {name:'Oman Tax Portal',bet:'Foundations',prio:'P1',si:3,conf:3,bp:5,reason:'5000 OMR/violation, regulatory compliance, mandatory'},
-  {name:'In-App Digital Invoices tMart QA',bet:'Experience',prio:'P1',si:3,conf:3,bp:3,reason:'€1.8M impact, QA specific, no deep BC'},
-  {name:'Coffee Tile',bet:'Ecosystem & Growth',prio:'P1',si:3,conf:2,bp:3,reason:'Accepted but no financial BC, vertical growth play'},
-  {name:'TOD Swimlane',bet:'Ecosystem & Growth',prio:'P1',si:3,conf:2,bp:3,reason:'Accepted, discovery/conversion, no quantified BC'},
-  {name:'Deal Targeting Pro',bet:'Ecosystem & Growth',prio:'P1',si:3,conf:2,bp:2,reason:'Product Review, no financial data available'},
-  {name:'Exclusive Deals Iraq',bet:'Ecosystem & Growth',prio:'P1',si:2,conf:2,bp:2,reason:'Product Review, single market, no BC'},
-  {name:'Segmented Banking',bet:'Value',prio:'P1',si:2,conf:2,bp:3,reason:'Qualitative BC only, pro retention/personalization'},
-  {name:'Bulk Update Timings Ramadan',bet:'Experience',prio:'P2',si:2,conf:3,bp:2,reason:'254K lost GMV, seasonal, narrow scope'},
-  {name:'Stamps Pro Multiplier',bet:'Ecosystem & Growth',prio:'P1',si:2,conf:2,bp:2,reason:'€74.5K, small impact, Backlog status'},
-  {name:'Rider/Customer Phone Masking',bet:'Experience',prio:'P1',si:1,conf:1,bp:3,reason:'Unquantified, privacy/compliance but no data'},
-  {name:'SD Prime Test',bet:'Ecosystem & Growth',prio:'P2',si:1,conf:2,bp:1,reason:'€30K, experimental, NEW'},
-  {name:'Bank Campaign UX/UI',bet:'Ecosystem & Growth',prio:'P0',si:2,conf:1,bp:2,reason:'Rejected — no BC, UX improvement only'}
+  {name:'LS Exclusive Deals',bet:'Ecosystem & Growth',prio:'P1',si:5,conf:4,bp:4,reason:'€17.5M incremental GMV (>€15M threshold), per-market BC, 48% pro adoption'},
+  {name:'Banking Visibility',bet:'Value',prio:'P0',si:4,conf:5,bp:4,reason:'€7.5M annual impact (€7M–€15M band), bank-funded, validated BC'},
+  {name:'UAE Tax Portal B2B',bet:'Foundations',prio:'P1',si:4,conf:3,bp:5,reason:'>€1M penalty risk, critical regulatory/legal compliance, multi-entity'},
+  {name:'Mission Banking',bet:'Value',prio:'P0',si:3,conf:5,bp:4,reason:'€5.75M annual impact (€3M–€7M band), full BC with retention data'},
+  {name:'LS Loyalty Programs',bet:'Ecosystem & Growth',prio:'P1',si:3,conf:4,bp:4,reason:'€5M realistic estimate (€3M–€7M band), multi-market growth lever'},
+  {name:'Oman Tax Portal',bet:'Foundations',prio:'P1',si:3,conf:3,bp:5,reason:'5000 OMR/violation, moderate regulatory impact, mandatory'},
+  {name:'SKU Banking',bet:'Value',prio:'P1',si:2,conf:4,bp:4,reason:'€2.5M annual impact (€1M–€3M band), targeted campaigns, solid BC'},
+  {name:'In-App Digital Invoices tMart QA',bet:'Experience',prio:'P1',si:2,conf:3,bp:3,reason:'€1.8M impact (€1M–€3M band), QA specific, no deep BC'},
+  {name:'Bulk Update Timings Ramadan',bet:'Experience',prio:'P2',si:1,conf:3,bp:2,reason:'254K lost GMV (<€1M threshold), seasonal, narrow scope'},
+  {name:'Coffee Tile',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:2,bp:3,reason:'No quantified annual impact, vertical growth play'},
+  {name:'TOD Swimlane',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:2,bp:3,reason:'No quantified annual impact, discovery/conversion'},
+  {name:'Segmented Banking',bet:'Value',prio:'P1',si:1,conf:2,bp:3,reason:'No quantified annual impact, qualitative BC only'},
+  {name:'Deal Targeting Pro',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:2,bp:2,reason:'No quantified annual impact, Product Review'},
+  {name:'Exclusive Deals Iraq',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:2,bp:2,reason:'No quantified annual impact, single market, no BC'},
+  {name:'Stamps Pro Multiplier',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:2,bp:2,reason:'€74.5K (<€1M threshold), small impact, Backlog status'},
+  {name:'Rider/Customer Phone Masking',bet:'Experience',prio:'P1',si:1,conf:1,bp:3,reason:'No quantified annual impact, privacy/compliance but no data'},
+  {name:'SD Prime Test',bet:'Ecosystem & Growth',prio:'P2',si:1,conf:2,bp:1,reason:'€30K (<€1M threshold), experimental, NEW'},
+  {name:'Bank Campaign UX/UI',bet:'Ecosystem & Growth',prio:'P0',si:1,conf:1,bp:2,reason:'Rejected — no quantified annual impact, UX improvement only'}
 ];
 scoreData.forEach(d=>{d.total=Math.round((d.si*0.5+d.conf*0.3+d.bp*0.2)*100)/100});
 scoreData.sort((a,b)=>b.total-a.total);
@@ -850,33 +850,33 @@ const councilData=[
    impact:'€21M/month GMV, 1.3M orders/month, 200K tMart orders at risk',metric:'GMV, Orders, QC Orders, QC MAUs',
    bc:'https://docs.google.com/document/d/1zX6INsGxjcn2WJ6Um0kZbNgnDSspPLSs/edit',
    okr:'',comments:[],cbo:'',tribe:'',pm:''},
-  {name:'Banking Visibility',bet:'Value',prio:'P0',status:'NEW',si:5,conf:5,bp:4,total:4.8,
+  {name:'Banking Visibility',bet:'Value',prio:'P0',status:'NEW',si:4,conf:5,bp:4,total:4.3,
    submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
    desc:'Expanding visibility across the app and surfacing offers earlier in the journey can unlock ~€7.5M GMV per year, funded by bank partners.',
    impact:'€7,500,000',metric:'Affordability',
    bc:'https://docs.google.com/document/d/1a2AHyjDtn1iPPDtohpm0Sh6mKHRTbeCyMuSC2FsbHdQ/edit',
    okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
-  {name:'Mission Banking',bet:'Value',prio:'P0',status:'NEW',si:4,conf:5,bp:4,total:4.3,
+  {name:'Mission Banking',bet:'Value',prio:'P0',status:'NEW',si:3,conf:5,bp:4,total:3.8,
    submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
    desc:'Introducing mission-based campaigns (e.g. "complete 3 orders to unlock reward") can unlock ~€5.75M additional GMV by increasing frequency and retention funded by banks.',
    impact:'€5,750,000',metric:'Affordability',
    bc:'https://docs.google.com/document/d/1A-v0CzcyICpIriqkbQT6FQtQQZbOcgTNXjzLJPYPRxc/edit',
    okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
-  {name:'LS Exclusive Deals',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:5,conf:4,bp:4,total:4.3,
+  {name:'LS Exclusive Deals',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:5,conf:4,bp:4,total:4.5,
    submitter:'Harshit Abichandani',requester:'CBO Office',date:'Mar 17, 2026',
    desc:'Local Shops (LS) vendors currently lack a targeted mechanism to reward high-value pro users, drive incremental frequency and basket size, and differentiate from competitors. Feature: LS exclusive deals, enabling LS vendors to offer pro-only discounts, similar to Food and tmart.',
    impact:'€17,500,000',metric:'Exclusive deals savings as % of total pro savings',
    bc:'https://docs.google.com/document/d/1Z_fEWgUukWwWS3En8TGQGIGEt-4boDfobvbSA6WhvFw/edit',
    okr:'O4. Grow tPro — Pro Exclusive Deals Swimlane on tMart Home. PM: Leen Ashqar',
    comments:['Q2 — Validation. Only 3PL integrated by August. Q3 rollout.'],cbo:'Hussein Daher',tribe:'Sofia Simões de Almeida',pm:'Howaida Thabet'},
-  {name:'LS Loyalty Programs',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:4,conf:4,bp:4,total:4.0,
+  {name:'LS Loyalty Programs',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:3,conf:4,bp:4,total:3.5,
    submitter:'Vipul Gajbhiye',requester:'Grocery & Retail',date:'Mar 16, 2026',
    desc:'Talabat currently does not support LS partner loyalty programs, creating a value gap versus offline shopping and competitors already enabling loyalty parity. Competitor benchmarks (Glovo, Snoonu–Monoprix) indicate loyalty integration can materially impact retention, frequency, and partner share. Just one loyalty integration by competition (Snoonu–Monoprix) led to ~24K orders and ~€600K GMV lost/month in Qatar.',
    impact:'€5M to €26M annual GMV (realistic to optimistic)',metric:'GMV',
    bc:'',bcTitle:'Enabling Partner Loyalty Cards [talabat]',
    okr:'O4.KR3 — cashback & loyalty mechanics. PM: Leen Ashqar',
    comments:[],cbo:'Hussein Daher',tribe:'Sofia Simões de Almeida',pm:'Howaida Thabet'},
-  {name:'SKU Banking',bet:'Value',prio:'P1',status:'NEW',si:3,conf:4,bp:4,total:3.5,
+  {name:'SKU Banking',bet:'Value',prio:'P1',status:'NEW',si:2,conf:4,bp:4,total:3.0,
    submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
    desc:'Banks are increasingly seeking targeted, differentiated campaigns tied to specific products, brands, or vendors. Current platform limitations prevent this. Enabling SKU and vendor-level targeting unlocks ~€2.5M additional GMV and allows highly strategic campaign execution.',
    impact:'€2,500,000',metric:'Affordability',
@@ -896,7 +896,7 @@ const councilData=[
    bc:'https://docs.google.com/document/d/17AbGO6uJQodiOfXYTSNG6RkQLcENpMvmn-355KwS3DY/edit',
    okr:'O9. Foundations — Tax/compliance. Legal/regulatory requirement.',
    comments:[],cbo:'',tribe:'Sofia Simões de Almeida',pm:'Bipin Kumar'},
-  {name:'In-App Digital Invoices tMart QA',bet:'Experience',prio:'P1',status:'Needs Clarification',si:3,conf:3,bp:3,total:3.0,
+  {name:'In-App Digital Invoices tMart QA',bet:'Experience',prio:'P1',status:'Needs Clarification',si:2,conf:3,bp:3,total:2.5,
    submitter:'Kuldeep Singh',requester:'Grocery & Retail',date:'Apr 7, 2026',
    desc:'Currently, tMart teams in Qatar manually print physical invoices for every order. This process introduces a severe operational bottleneck, directly degrading our 15-minute DT SLA and operational costs. While physical invoices are not legally required by MOCI, they are retained to maintain customer trust. Proposal: transition to In-App Digital Invoices.',
    impact:'€1.8M',metric:'Order Prep time & Delivery Time by ~40 seconds',
@@ -904,47 +904,47 @@ const councilData=[
    okr:'O9 Foundations (operational improvement)',
    comments:[{author:'Miriam Velloso',text:'@alvaro.garcia can you review this request, and let us know if this is a regional request or just for QA?'}],
    cbo:'Alvaro Garcia Leal',tribe:'Sofia Simões de Almeida',pm:'Bipin Kumar'},
-  {name:'Coffee Tile',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:3,conf:2,bp:3,total:2.7,
+  {name:'Coffee Tile',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:1,conf:2,bp:3,total:1.7,
    submitter:'(Marketing)',requester:'Marketing',date:'Mar 18, 2026',
    desc:'Strong growth in coffee category, with EDR driving significant share. Proposal: test a time-based "Coffee" tile on homescreen during high-intent windows (morning, post-lunch) to increase visibility and drive incremental orders.',
    impact:'Not quantified',metric:'Coffee orders / GMV',
    bc:'',bcTitle:'UAE: Test "Coffee" Tile on Homescreen',
    okr:'ALREADY COVERED: O6.KR2 → TLBVAL-5 Coffee Tile Time-Based Experiment (UAE) — In Progress. PM: Adrian Alvarez',
    comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Emily Thomas',pm:'Adrian Alvarez'},
-  {name:'TOD Swimlane',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:3,conf:2,bp:3,total:2.7,
+  {name:'TOD Swimlane',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:1,conf:2,bp:3,total:1.7,
    submitter:'Omar Ezz',requester:'Marketing',date:'Apr 1, 2026',
    desc:'Capitalizing on the swimlane along with wider marketing channels to support the time-of-day strategy itself.',
    impact:'Need assistance on financial incrementality',metric:'Time of day orders spike, UTR, Frequency',
    bc:'',bcTitle:'TOD Swimlane',
    okr:'O6.KR2 (Time-context relevance on Home). Related to Coffee Tile & TOD initiatives. PM: Adrian Alvarez',
    comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Emily Thomas',pm:'Adrian Alvarez'},
-  {name:'Deal Targeting Pro',bet:'Ecosystem & Growth',prio:'P1',status:'Product Review',si:3,conf:2,bp:2,total:2.5,
+  {name:'Deal Targeting Pro',bet:'Ecosystem & Growth',prio:'P1',status:'Product Review',si:1,conf:2,bp:2,total:1.5,
    submitter:'Prashasti Nagpal',requester:'CBO Office',date:'Apr 1, 2026',
    desc:'Current pro deals drive high engagement but are becoming increasingly inefficient as an acquisition tool. Proposal: implement deal targeting to convert active, in-session users. Layer targeted "boosters" on top of current incentivized topline campaigns. Starting with 10% or 20% boosters with A/B grade vendors, leveraging VFD component.',
    impact:'+500 new pro users/month, CPA €2.41',metric:'Pro acquisitions',
    bc:'https://docs.google.com/spreadsheets/d/18ngrwg5bZhLCIRJCMEYVcE7XEygqYr6574VhiUv-8eI',
    okr:'O4. Grow tPro → KR1 (Reduce triggered churn). PM: Leen Ashqar',
    comments:[],cbo:'Hussein Daher',tribe:'',pm:''},
-  {name:'Exclusive Deals Iraq',bet:'Ecosystem & Growth',prio:'P1',status:'Product Review',si:2,conf:2,bp:2,total:2.0,
+  {name:'Exclusive Deals Iraq',bet:'Ecosystem & Growth',prio:'P1',status:'Product Review',si:1,conf:2,bp:2,total:1.5,
    submitter:'Ashish Atree',requester:'Partner Growth',date:'Apr 7, 2026',
    desc:'Planning to launch Exclusive deals to new customers in Iraq. Need help to prioritize the effort on Swimlane integration.',
    impact:'NA',metric:'New customer acquisition',
    bc:'',
    okr:'O3. Boost QC MAU. PM: Howaida',
    comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Sofia Simões de Almeida',pm:''},
-  {name:'Segmented Banking',bet:'Value',prio:'P1',status:'NEW',si:2,conf:2,bp:3,total:2.2,
+  {name:'Segmented Banking',bet:'Value',prio:'P1',status:'NEW',si:1,conf:2,bp:3,total:1.7,
    submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
    desc:'Enabling differentiated offers by segment allows better targeting and ROI optimization. Unlocks stronger personalization and supports pro value proposition and retention.',
    impact:'Not quantified',metric:'Pro acquisition, retention',
    bc:'https://docs.google.com/document/d/1ERbnZlvxVyawjeGynngzgoyIbwCKYAK_bLZmd9-SDkI/edit',
    okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
-  {name:'Bulk Update Timings Ramadan',bet:'Experience',prio:'P2',status:'NEW',si:2,conf:3,bp:2,total:2.3,
+  {name:'Bulk Update Timings Ramadan',bet:'Experience',prio:'P2',status:'NEW',si:1,conf:3,bp:2,total:1.8,
    submitter:'Mohamed Atef',requester:'Grocery & Retail',date:'Apr 22, 2026',
    desc:'The current manual update of timings during Ramadan for 8,000 branches is inefficient, consuming 173 hours per cycle and causing a 62% spike in cancellations due to timing errors. This results in 254K lost GMV during the first week alone. Implementing a bulk CSV upload tool will reduce manual labor by 65%, saving 113 hours annually.',
    impact:'254K lost GMV first week, 62% cancellation spike',metric:'Lost GMV due to wrong timings',
    bc:'',bcTitle:'BC| Bulk Branch Timing Automation: Reducing Update Time by 65% | Q2 26',
    okr:'',comments:[],cbo:'Khee Lim / Aanchal Kotwaney',tribe:'Rose Marsh',pm:''},
-  {name:'Stamps Pro Multiplier',bet:'Ecosystem & Growth',prio:'P1',status:'Backlog',si:2,conf:2,bp:2,total:2.0,
+  {name:'Stamps Pro Multiplier',bet:'Ecosystem & Growth',prio:'P1',status:'Backlog',si:1,conf:2,bp:2,total:1.5,
    submitter:'Prashasti Nagpal',requester:'CBO Office',date:'Apr 1, 2026',
    desc:'Introduce a 2x voucher multiplier for pro users who successfully collect 3 stamps on eligible chains. Fully funded by talabat. Hypothesis: higher voucher value drives incremental topline by increasing funnel entries and completion rates among pro users. ~50% platform cannibalization assumed.',
    impact:'€74,508',metric:'Pro user frequency and platform topline',
@@ -965,7 +965,7 @@ const councilData=[
    impact:'€30,000',metric:'NCR',
    bc:'',
    okr:'',comments:[],cbo:'',tribe:'',pm:''},
-  {name:'Bank Campaign UX/UI',bet:'Ecosystem & Growth',prio:'P0',status:'Rejected',si:2,conf:1,bp:2,total:1.7,
+  {name:'Bank Campaign UX/UI',bet:'Ecosystem & Growth',prio:'P0',status:'Rejected',si:1,conf:1,bp:2,total:1.2,
    submitter:'(Marketing)',requester:'Marketing',date:'Mar 17, 2026',
    desc:'Running multiple bank-funded voucher campaigns split across different days to manage daily redemption caps. Users have learned timing, leading to vouchers consumed within seconds. Looking to introduce usage restrictions for fair distribution.',
    impact:'€1M+ revenue, 800K+ orders',metric:'UX/UI improvement',
