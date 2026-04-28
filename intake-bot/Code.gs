@@ -10,7 +10,7 @@ var CONFIG = {
   CHANNEL_ID: 'C03TZK6G4P8',
   TABS: ['1/ Choice', '2/Experience', '3/Value', '4/Ecosystem & Growth', '5/Foundations', '6/No Related Bet'],
   COL: { NAME: 5, DESC: 6, STATUS: 7, IMPACT: 8, METRIC: 9, CUSTOMER: 10, DOCS: 11, DEPT: 12, SUBMITTER: 13, CBO: 14, TRIBE: 15, PO: 17 },
-  SCORE_COL: { STRATEGIC: 18, CONFIDENCE: 19, PRIORITY: 20, TOTAL: 21, TIER: 22, RATIONALE: 23 },
+  SCORE_COL: { STRATEGIC: 20, CONFIDENCE: 21, PRIORITY: 22, TOTAL: 23, TIER: 24, RATIONALE: 25 },
   BOT_NAME: 'Intake Bot',
   BOT_ICON: ':clipboard:',
   STAKEHOLDERS: {
@@ -98,7 +98,9 @@ function checkIntakeStatuses() {
           }
         }
       } else if (prev.status !== status && status) {
-        changes.push({ tab: tabName, row: row, key: key, old: prev.status, status: status, submitter: submitter, failReasons: [] });
+        var initName2 = String(row[CONFIG.COL.NAME] || '').trim();
+        var failReasons2 = (triageNewRows_.failReasons && triageNewRows_.failReasons[initName2]) || [];
+        changes.push({ tab: tabName, row: row, key: key, old: prev.status, status: status, submitter: submitter, failReasons: failReasons2 });
       }
     });
   });
@@ -234,12 +236,12 @@ function scoreReadyRows_(ss) {
     if (!sheet || sheet.getLastRow() < 2) return;
     var lastRow = sheet.getLastRow();
 
-    var headers = sheet.getRange(1, 19, 1, 6).getValues()[0];
+    var headers = sheet.getRange(1, 21, 1, 6).getValues()[0];
     if (!String(headers[0]).trim()) {
-      sheet.getRange(1, 19, 1, 6).setValues([['Strategic Impact', 'Confidence Level', 'Business Priority', 'Total Score', 'Tier', 'Score Rationale']]);
+      sheet.getRange(1, 21, 1, 6).setValues([['Strategic Impact', 'Confidence Level', 'Business Priority', 'Total Score', 'Tier', 'Score Rationale']]);
     }
 
-    var data = sheet.getRange(2, 1, lastRow - 1, 24).getValues();
+    var data = sheet.getRange(2, 1, lastRow - 1, 26).getValues();
 
     data.forEach(function(row, idx) {
       var sheetRow = idx + 2;
@@ -261,7 +263,7 @@ function scoreReadyRows_(ss) {
       var tier = total >= 4.0 ? 'Prioritize' : (total >= 2.5 ? 'Discuss' : 'Defer');
       var rationale = buildRationale_(strategic, confidence, priority, impact, docs);
 
-      sheet.getRange(sheetRow, 19, 1, 6).setValues([[strategic, confidence, priority, total, tier, rationale]]);
+      sheet.getRange(sheetRow, 21, 1, 6).setValues([[strategic, confidence, priority, total, tier, rationale]]);
       count++;
       Logger.log('SCORE: "' + name.substring(0, 40) + '" → ' + total + '/5.0 (' + tier + ')');
     });
@@ -584,8 +586,6 @@ function buildMessage_(c, userId) {
 
 function setup() {
   var props = PropertiesService.getScriptProperties();
-  // Set your Slack Bot Token via Script Properties in the Apps Script editor
-  // Or replace this placeholder before first run
   props.setProperty('SLACK_BOT_TOKEN', 'YOUR_SLACK_BOT_TOKEN_HERE');
   props.setProperty('BOT_STATE', JSON.stringify({
     rows: {},
