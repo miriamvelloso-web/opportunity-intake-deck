@@ -266,7 +266,7 @@ h2 span{color:var(--orange)}
 <!-- HERO -->
 <section class="hero" id="hero">
   <h1>Opportunity <span>Intake</span><br>AI Automation</h1>
-  <p>End-to-end automation of the intake process — from detecting new submissions to assigning stakeholders and notifying via Slack DM.</p>
+  <p>End-to-end automation of the intake process — from detecting new submissions to scoring, assigning stakeholders, and notifying via Slack channel threads.</p>
   <div class="badge">Product Ops &bull; Miriam Velloso + Eoin Hickey &bull; April 2026</div>
 </section>
 
@@ -315,8 +315,8 @@ h2 span{color:var(--orange)}
     <div class="pipe-arrow reveal">&rarr;</div>
     <div class="pipe-step reveal reveal-delay-3" data-step="6" onclick="showStep(6)">
       <div class="pipe-num" style="background:var(--burgundy)">7</div>
-      <div class="pipe-label">DM Submitter</div>
-      <div class="pipe-desc">Bot sends Slack DM</div>
+      <div class="pipe-label">Notify Channel</div>
+      <div class="pipe-desc">Bot posts to channel thread</div>
     </div>
   </div>
 
@@ -478,8 +478,8 @@ h2 span{color:var(--orange)}
 <!-- BOT DM FLOW -->
 <section id="bot">
   <div class="stitle reveal">Step 7</div>
-  <h2 class="reveal">Bot <span>Direct Message</span> Flow</h2>
-  <p class="subtitle reveal">The bot DMs the submitter every time the status changes — not just once. Any update triggers a new message.</p>
+  <h2 class="reveal">Bot <span>Channel Thread</span> Flow</h2>
+  <p class="subtitle reveal">The bot posts to #tlb_opportunityintake_product channel — one thread per initiative, with @mentions for submitter, CBO, and Product Tribe. Replies are captured back to the sheet.</p>
 
   <div class="status-trigger reveal">
     <div class="trigger-label">Triggers on any status change</div>
@@ -490,7 +490,7 @@ h2 span{color:var(--orange)}
       <span class="trigger-arrow">&rarr;</span>
       <span class="trigger-chip" style="background:var(--purple)">In Review</span>
       <span class="trigger-arrow">&rarr;</span>
-      <span class="trigger-chip" style="background:#B34700">Needs More Info</span>
+      <span class="trigger-chip" style="background:#B34700">Needs Clarification</span>
       <span class="trigger-arrow">&rarr;</span>
       <span class="trigger-chip" style="background:var(--burgundy)">Approved / Rejected</span>
     </div>
@@ -500,79 +500,74 @@ h2 span{color:var(--orange)}
     <div class="dm-thread reveal">
       <h4><span class="dot" style="background:var(--orange)"></span> Ready for Review</h4>
       <div class="dm-msg dm-bot">
-        <div class="sender">Intake Bot</div>
-        &#128229; <strong>Your initiative is queued for review</strong><br><br>
+        <div class="sender">Intake Bot &rarr; #tlb_opportunityintake_product</div>
+        &#128229; <strong>New intake ready for review</strong><br><br>
         <code style="background:var(--burgundy);color:var(--cream);padding:3px 8px;border-radius:4px;font-size:12px">Launch premium vendor tier</code><br>
         <em style="opacity:0.6;font-size:12px">Bet: 1/ Choice</em><br><br>
-        &bull; CBO: Kedar Kulkarni<br>
-        &bull; Product Tribe: Tony Fadel<br><br>
-        <span style="opacity:0.7;font-size:12px">You'll be notified when the review kicks off. Nothing needed from you right now.</span>
+        &bull; CBO: @Kedar Kulkarni<br>
+        &bull; Product Tribe: @Tony Fadel<br>
+        &bull; Score: <strong>3.5/5.0 — Discuss</strong><br><br>
+        <span style="opacity:0.7;font-size:12px">Strategic: 3 | Confidence: 4 | Priority: 3</span>
       </div>
       <div class="dm-action">
         <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        No action needed — submitter is kept in the loop
+        Channel thread — full team has visibility, stakeholders @mentioned
       </div>
     </div>
 
     <div class="dm-thread reveal reveal-delay-1">
       <h4><span class="dot" style="background:#B34700"></span> Needs Clarification</h4>
       <div class="dm-msg dm-bot">
-        <div class="sender">Intake Bot</div>
-        &#128680; <strong>Action needed — the review team has questions</strong><br><br>
+        <div class="sender">Intake Bot &rarr; #tlb_opportunityintake_product</div>
+        &#128680; <strong>Submission needs additional details</strong><br><br>
         <code style="background:var(--burgundy);color:var(--cream);padding:3px 8px;border-radius:4px;font-size:12px">Reduce delivery cost for tmart</code><br>
-        <em style="opacity:0.6;font-size:12px">Bet: 2/Experience</em><br><br>
-        &#128221; <strong>What you submitted</strong><br>
-        <div style="border-left:3px solid var(--orange);padding:8px 12px;margin:8px 0;background:rgba(255,89,0,0.05);border-radius:0 6px 6px 0;font-size:12px;font-style:italic">
-          Reduce delivery cost for tmart orders through route optimization...<br>
-          <span style="opacity:0.7">Impact: 15% cost reduction target</span>
-        </div>
-        &#128073; <strong>Please update your submission</strong> with the additional details requested:<br>
+        <em style="opacity:0.6;font-size:12px">Bet: 2/Experience | Submitter: @Mohamed</em><br><br>
+        &#128073; <strong>Missing fields:</strong><br>
+        &bull; Description too short (need 50+ chars)<br>
+        &bull; No supporting documents<br><br>
         <a href="#" style="color:var(--orange);font-weight:600;font-size:12px">Open Intake Sheet</a>
       </div>
       <div class="dm-msg dm-user">
-        <div class="sender">Submitter</div>
-        Target: 15% cost reduction by Q3.<br>
-        Timeline: 8 weeks from approval.
+        <div class="sender">Submitter (in thread)</div>
+        Updated the description and attached the business case document.
       </div>
       <div class="dm-action">
         <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-        Submitter replies directly — bot captures context
+        Replies in thread captured back to sheet as cell notes
       </div>
     </div>
   </div>
 
   <div class="dm-container" style="margin-top:20px">
     <div class="dm-thread reveal reveal-delay-2">
-      <h4><span class="dot" style="background:var(--purple)"></span> In Review</h4>
+      <h4><span class="dot" style="background:var(--purple)"></span> Status Changed &rarr; In Review</h4>
       <div class="dm-msg dm-bot">
-        <div class="sender">Intake Bot</div>
-        &#128270; <strong>Your initiative is now under review</strong><br><br>
+        <div class="sender">Intake Bot &rarr; #tlb_opportunityintake_product</div>
+        &#128270; <strong>Initiative is now under council review</strong><br><br>
         <code style="background:var(--burgundy);color:var(--cream);padding:3px 8px;border-radius:4px;font-size:12px">Reduce delivery cost for tmart</code><br>
         <em style="opacity:0.6;font-size:12px">Bet: 2/Experience</em><br><br>
         &#128101; <strong>Reviewers</strong><br>
-        &bull; Product Owner: Bipin Kumar<br>
-        &bull; CBO: Kedar Kulkarni<br><br>
-        <span style="opacity:0.7;font-size:12px">We'll notify you as soon as a decision is reached. No action needed.</span>
+        &bull; CBO: @Khee Lim<br>
+        &bull; Product Tribe: @Rose Marsh<br><br>
+        <span style="opacity:0.7;font-size:12px">Score: 3.2/5.0 — Discuss</span>
       </div>
     </div>
 
     <div class="dm-thread reveal reveal-delay-3">
       <h4><span class="dot" style="background:#2e7d32"></span> Accepted</h4>
       <div class="dm-msg dm-bot">
-        <div class="sender">Intake Bot</div>
-        &#127881; <strong>Great news — your initiative has been accepted!</strong><br><br>
+        <div class="sender">Intake Bot &rarr; #tlb_opportunityintake_product</div>
+        &#127881; <strong>Initiative accepted by council!</strong><br><br>
         <code style="background:var(--burgundy);color:var(--cream);padding:3px 8px;border-radius:4px;font-size:12px">Reduce delivery cost for tmart</code><br>
-        <em style="opacity:0.6;font-size:12px">Bet: 2/Experience</em><br><br>
-        &#128101; <strong>Your team</strong><br>
-        &bull; Product Owner: Bipin Kumar<br>
-        &bull; Product Tribe: Rose Marsh<br>
-        &bull; CBO: Kedar Kulkarni<br><br>
-        &#9654;&#65039; <strong>What happens next</strong><br>
-        <span style="opacity:0.7;font-size:12px">The product owner will reach out to kick off scoping. No action needed from you right now.</span>
+        <em style="opacity:0.6;font-size:12px">Bet: 2/Experience | Score: 3.2/5.0</em><br><br>
+        &#128101; <strong>Assigned team</strong><br>
+        &bull; CBO: @Khee Lim<br>
+        &bull; Product Tribe: @Rose Marsh<br><br>
+        &#9654;&#65039; Product owner will reach out for scoping.
       </div>
       <div class="dm-action" style="background:#2e7d32">
         <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#fff"/></svg>
-        <span style="color:#fff">Initiative moves to execution — PO reaches out for scoping</span>
+        <span style="color:#fff">Initiative moves to execution — visible to entire channel</span>
       </div>
     </div>
   </div>
@@ -624,7 +619,7 @@ h2 span{color:var(--orange)}
   </div>
 
   <h3 class="reveal" style="font-size:22px;font-weight:700;color:var(--burgundy);margin-bottom:4px">Applied to Current Intakes</h3>
-  <p class="reveal" style="font-size:13px;opacity:0.5;margin-bottom:20px">17 active submissions scored using business case data where available. Sorted by weighted total.</p>
+  <p class="reveal" style="font-size:13px;opacity:0.5;margin-bottom:20px">19 active submissions scored using business case data where available. Sorted by weighted total.</p>
 
   <div class="score-table-wrap reveal">
     <table class="score-table" id="scoreTable">
@@ -665,8 +660,8 @@ h2 span{color:var(--orange)}
 <!-- ARCHITECTURE -->
 <section id="architecture">
   <div class="stitle reveal">Technical Design</div>
-  <h2 class="reveal"><span>MCP-Native</span> Architecture</h2>
-  <p class="subtitle reveal">No Python scripts, no servers, no infrastructure to maintain. Runs entirely through Claude Code + MCP tools.</p>
+  <h2 class="reveal"><span>Apps Script</span> Architecture</h2>
+  <p class="subtitle reveal">No Python scripts, no servers to maintain. Runs entirely through Google Apps Script with an hourly trigger — triage, score, and notify automatically.</p>
 
   <div class="arch-diagram">
     <div class="arch-node sheets reveal">
@@ -683,37 +678,37 @@ h2 span{color:var(--orange)}
       <div class="arrow-line"></div>
     </div>
     <div class="arch-node claude reveal reveal-delay-2">
-      <h4>Claude Code + MCP</h4>
+      <h4>Apps Script Bot</h4>
       <ul>
-        <li>Detect</li>
-        <li>Evaluate</li>
-        <li>Assign</li>
-        <li>Classify & Map</li>
-        <li>Update & Notify</li>
+        <li>Hourly Trigger</li>
+        <li>Triage NEW Rows</li>
+        <li>Score Ready Rows</li>
+        <li>Detect Changes</li>
+        <li>Notify Channel</li>
       </ul>
     </div>
     <div class="arch-connector reveal reveal-delay-3">
-      <span>DM via Bot</span>
+      <span>Channel Threads</span>
       <div class="arrow-line"></div>
     </div>
     <div class="arch-node slack reveal reveal-delay-4">
       <h4>Slack</h4>
       <ul>
-        <li>DM Submitter</li>
-        <li>Collect replies</li>
-        <li>Write as comments</li>
+        <li>Channel Thread per Initiative</li>
+        <li>@mention Stakeholders</li>
+        <li>Capture Thread Replies</li>
       </ul>
     </div>
   </div>
 
   <div class="benefits reveal">
-    <div class="benefit">No Python scripts<br>No servers to maintain</div>
-    <div class="benefit">On-demand or scheduled<br>Runs in Claude Code</div>
+    <div class="benefit">Hourly auto-run<br>Zero manual triggers</div>
+    <div class="benefit">Channel threads<br>Team-wide visibility</div>
     <div class="benefit">Fully auditable<br>All changes in Sheet</div>
   </div>
 
   <p style="text-align:center;margin-top:24px;font-size:13px;opacity:0.5;font-style:italic" class="reveal">
-    Supersedes Eoin's Python playbook approach — same outcome, zero infrastructure
+    Apps Script hourly pipeline — triage, score, notify. No Python, no servers.
   </p>
 </section>
 
@@ -726,38 +721,38 @@ h2 span{color:var(--orange)}
   <div class="timeline">
     <div class="phase reveal">
       <h4>Phase 1 — Setup</h4>
-      <div class="week">Week 1</div>
+      <div class="week" style="background:#2e7d32;color:#fff">Complete</div>
       <ul>
-        <li>Connect MCP tools (Sheets + Slack)</li>
-        <li>Map stakeholder rules from Intake Council</li>
-        <li>Validate detection & evaluation logic</li>
+        <li>Stakeholder mapping from Intake Council</li>
+        <li>Quality gate: 4-field evaluation logic</li>
+        <li>Scoring rubric calibrated to P&T OKR actuals</li>
       </ul>
     </div>
     <div class="phase reveal reveal-delay-1">
       <h4>Phase 2 — Pilot</h4>
-      <div class="week">Week 2</div>
+      <div class="week" style="background:#2e7d32;color:#fff">Complete</div>
       <ul>
-        <li>Run on 1 bet tab only (Choice)</li>
-        <li>Verify stakeholder assignments</li>
-        <li>Collect feedback from council</li>
+        <li>Tested on individual bet tabs</li>
+        <li>Verified stakeholder assignments</li>
+        <li>Feedback incorporated from council</li>
       </ul>
     </div>
     <div class="phase reveal reveal-delay-2">
       <h4>Phase 3 — Scale</h4>
-      <div class="week">Weeks 3–4</div>
+      <div class="week" style="background:#2e7d32;color:#fff">Complete</div>
       <ul>
-        <li>Expand to all 6 bet tabs</li>
-        <li>Enable Slack DM notifications</li>
-        <li>OKR mapping goes live</li>
+        <li>All 6 bet tabs active</li>
+        <li>Channel thread notifications live</li>
+        <li>OKR mapping + PM recommendations</li>
       </ul>
     </div>
     <div class="phase reveal reveal-delay-3">
       <h4>Phase 4 — Automate</h4>
-      <div class="week">Week 5+</div>
+      <div class="week" style="background:var(--orange);color:#fff">Live</div>
       <ul>
-        <li>Scheduled recurring runs</li>
-        <li>Full autonomy mode</li>
-        <li>Dashboard & reporting</li>
+        <li>Hourly Apps Script trigger</li>
+        <li>Auto-triage + auto-score</li>
+        <li>Thread reply capture (pending scope approval)</li>
       </ul>
     </div>
   </div>
@@ -775,7 +770,7 @@ const steps = [
   {title:'Step 4: Auto-Assign Stakeholders',items:['Read Theme from column C','Lookup against Intake Council tab','Auto-fill CBO (col O) from row 4','Auto-fill Product Tribe (col P) from row 2','Auto-fill Product Owner / Bet Lead (col R) from row 3','5 theme mappings: Choice, Experience, Value, Ecosystem, Foundations']},
   {title:'Step 5: Map to OKR',items:['Only triggered for Optimizations (not New Bets)','Scans description for metric keywords','Matches to H1 2026 Objectives (O1–O6)','Identifies the relevant Key Result','Assigns CBO owner from the OKR table','6 objectives covering GMV, Affordability, MAU, tPro, Growth, Experience']},
   {title:'Step 6: Update Status',items:['Sets status to "Ready for Review" if quality check passes','Sets status to "Needs Clarification" if required fields missing','Records what specific fields are missing','Timestamps the evaluation','Prepares context for the DM notification','Status visible in the intake sheet for council review']},
-  {title:'Step 7: DM Submitter via Bot',items:['Sends Slack DM directly to the submitter (not channel post)','Triggered every time the status changes — not just once','If Ready: confirms review, shows next intake date, assigned CBO','If Needs Info: lists missing fields, asks submitter to reply','Submitter replies to bot with missing details','Bot captures reply and writes as comment in the Sheet row']}
+  {title:'Step 7: Notify via Channel Thread',items:['Posts to #tlb_opportunityintake_product — one thread per initiative','@mentions submitter, CBO, and Product Tribe in the thread','Triggered every time the status changes — not just once','If Ready: shows scores, tier, and assigned stakeholders','If Needs Clarification: lists specific missing fields','Thread replies captured back to the intake sheet as cell notes']}
 ];
 
 function showStep(i){
@@ -805,25 +800,25 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 // Scoring data — weights: Impact 50%, Confidence 30%, BizPriority 20%
 const scoreData=[
-  {name:'Web Ordering Reactivation',bet:'Ecosystem & Growth',prio:'P0',si:5,conf:5,bp:5,reason:'€21M/month GMV at risk, 1.3M orders, compliance-critical, full BC'},
-  {name:'LS Exclusive Deals',bet:'Ecosystem & Growth',prio:'P1',si:5,conf:4,bp:4,reason:'€17.5M incremental GMV (>€15M threshold), per-market BC, 48% pro adoption'},
-  {name:'Banking Visibility',bet:'Value',prio:'P0',si:4,conf:5,bp:4,reason:'€7.5M annual impact (€7M–€15M band), bank-funded, validated BC'},
-  {name:'UAE Tax Portal B2B',bet:'Foundations',prio:'P1',si:4,conf:3,bp:5,reason:'>€1M penalty risk, critical regulatory/legal compliance, multi-entity'},
-  {name:'Mission Banking',bet:'Value',prio:'P0',si:3,conf:5,bp:4,reason:'€5.75M annual impact (€3M–€7M band), full BC with retention data'},
-  {name:'LS Loyalty Programs',bet:'Ecosystem & Growth',prio:'P1',si:3,conf:4,bp:4,reason:'€5M realistic estimate (€3M–€7M band), multi-market growth lever'},
-  {name:'Oman Tax Portal',bet:'Foundations',prio:'P1',si:3,conf:3,bp:5,reason:'5000 OMR/violation, moderate regulatory impact, mandatory'},
-  {name:'SKU Banking',bet:'Value',prio:'P1',si:2,conf:4,bp:4,reason:'€2.5M annual impact (€1M–€3M band), targeted campaigns, solid BC'},
-  {name:'In-App Digital Invoices tMart QA',bet:'Experience',prio:'P1',si:2,conf:3,bp:3,reason:'€1.8M impact (€1M–€3M band), QA specific, no deep BC'},
-  {name:'Bulk Update Timings Ramadan',bet:'Experience',prio:'P2',si:1,conf:3,bp:2,reason:'254K lost GMV (<€1M threshold), seasonal, narrow scope'},
-  {name:'Coffee Tile',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:2,bp:3,reason:'No quantified annual impact, vertical growth play'},
-  {name:'TOD Swimlane',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:2,bp:3,reason:'No quantified annual impact, discovery/conversion'},
-  {name:'Segmented Banking',bet:'Value',prio:'P1',si:1,conf:2,bp:3,reason:'No quantified annual impact, qualitative BC only'},
-  {name:'Deal Targeting Pro',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:2,bp:2,reason:'No quantified annual impact, Product Review'},
-  {name:'Exclusive Deals Iraq',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:2,bp:2,reason:'No quantified annual impact, single market, no BC'},
-  {name:'Stamps Pro Multiplier',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:2,bp:2,reason:'€74.5K (<€1M threshold), small impact, Backlog status'},
-  {name:'Rider/Customer Phone Masking',bet:'Experience',prio:'P1',si:1,conf:1,bp:3,reason:'No quantified annual impact, privacy/compliance but no data'},
-  {name:'SD Prime Test',bet:'Ecosystem & Growth',prio:'P2',si:1,conf:2,bp:1,reason:'€30K (<€1M threshold), experimental, NEW'},
-  {name:'Bank Campaign UX/UI',bet:'Ecosystem & Growth',prio:'P0',si:1,conf:1,bp:2,reason:'Rejected — no quantified annual impact, UX improvement only'}
+  {name:'Web Ordering Reactivation',bet:'Ecosystem & Growth',prio:'P0',si:5,conf:4,bp:5,reason:'€21M GMV with regulatory urgency, all active markets at risk'},
+  {name:'LS Exclusive Deals',bet:'Ecosystem & Growth',prio:'P1',si:5,conf:4,bp:3,reason:'€17.5M GMV with full business case, pro-tier strategy'},
+  {name:'Banking Visibility',bet:'Value',prio:'P0',si:4,conf:3,bp:3,reason:'€7.5M GMV bank-funded with documentation'},
+  {name:'LS Loyalty Programs',bet:'Ecosystem & Growth',prio:'P1',si:3,conf:4,bp:4,reason:'€5-26M GMV with competitive benchmarks and detailed assumptions'},
+  {name:'UAE Tax Portal B2B',bet:'Foundations',prio:'P1',si:3,conf:3,bp:5,reason:'Tax compliance, >€1M penalty risk, regulatory mandate'},
+  {name:'Mission Banking',bet:'Value',prio:'P0',si:3,conf:3,bp:3,reason:'€5.75M GMV bank-funded, retention-focused'},
+  {name:'Oman Tax Portal',bet:'Foundations',prio:'P1',si:2,conf:3,bp:5,reason:'Tax compliance, penalty per violation, regulatory mandate'},
+  {name:'SKU Banking',bet:'Value',prio:'P1',si:2,conf:3,bp:3,reason:'€2.5M GMV with documentation, targeted execution'},
+  {name:'Bulk Update Timings Ramadan',bet:'Experience',prio:'P2',si:2,conf:3,bp:2,reason:'~€1M seasonal GMV impact, BC available but narrow scope'},
+  {name:'Bank Campaign UX/UI',bet:'Ecosystem & Growth',prio:'P0',si:2,conf:2,bp:3,reason:'>€1M impact but rejected, no formal business case'},
+  {name:'In-App Digital Invoices tMart QA',bet:'Foundations',prio:'P1',si:2,conf:2,bp:2,reason:'€1.8M savings, Qatar-specific, no formal business case'},
+  {name:'Deal Targeting Pro',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:3,bp:3,reason:'No GMV figure, modest user uplift with efficient CPA'},
+  {name:'Stamps Pro Multiplier',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:3,bp:2,reason:'Limited impact (€74.5K), well-documented but narrow scope'},
+  {name:'Segmented Banking',bet:'Value',prio:'P1',si:1,conf:2,bp:3,reason:'No quantified impact despite documentation'},
+  {name:'Coffee Tile',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:2,bp:2,reason:'Exploratory experiment, no quantified impact'},
+  {name:'Rider/Customer Phone Masking',bet:'Experience',prio:'P1',si:1,conf:1,bp:2,reason:'No quantified impact, no supporting documentation'},
+  {name:'TOD Swimlane',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:1,bp:2,reason:'No quantified impact, no business case'},
+  {name:'Exclusive Deals Iraq',bet:'Ecosystem & Growth',prio:'P1',si:1,conf:1,bp:2,reason:'No impact or BC, single market, already rejected'},
+  {name:'SD Prime Test',bet:'Ecosystem & Growth',prio:'P2',si:1,conf:1,bp:2,reason:'Minimal impact (€30K), no documentation'}
 ];
 scoreData.forEach(d=>{d.total=Math.round((d.si*0.5+d.conf*0.3+d.bp*0.2)*100)/100});
 scoreData.sort((a,b)=>b.total-a.total);
@@ -844,31 +839,25 @@ scoreData.forEach((d,i)=>{
 
 // Council View data — full context for each intake
 const councilData=[
-  {name:'Web Ordering Reactivation',bet:'Ecosystem & Growth',prio:'P0',status:'NEW',si:5,conf:5,bp:5,total:5.0,
+  {name:'Web Ordering Reactivation',bet:'Ecosystem & Growth',prio:'P0',status:'NEW',si:5,conf:4,bp:5,total:4.7,
    submitter:'Menna Walied',requester:'Marketing',date:'Apr 22, 2026',
    desc:'Google has issued suspension warnings to our GMC accounts following the discontinuation of web ordering in Q4 2025, citing a missing functional web checkout, a mandatory requirement for all Shopping advertisers. Web ordering reactivation is required to restore compliance and avoid suspension across all active markets.',
    impact:'€21M/month GMV, 1.3M orders/month, 200K tMart orders at risk',metric:'GMV, Orders, QC Orders, QC MAUs',
    bc:'https://docs.google.com/document/d/1zX6INsGxjcn2WJ6Um0kZbNgnDSspPLSs/edit',
    okr:'',comments:[],cbo:'',tribe:'',pm:''},
-  {name:'Banking Visibility',bet:'Value',prio:'P0',status:'NEW',si:4,conf:5,bp:4,total:4.3,
-   submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
-   desc:'Expanding visibility across the app and surfacing offers earlier in the journey can unlock ~€7.5M GMV per year, funded by bank partners.',
-   impact:'€7,500,000',metric:'Affordability',
-   bc:'https://docs.google.com/document/d/1a2AHyjDtn1iPPDtohpm0Sh6mKHRTbeCyMuSC2FsbHdQ/edit',
-   okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
-  {name:'Mission Banking',bet:'Value',prio:'P0',status:'NEW',si:3,conf:5,bp:4,total:3.8,
-   submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
-   desc:'Introducing mission-based campaigns (e.g. "complete 3 orders to unlock reward") can unlock ~€5.75M additional GMV by increasing frequency and retention funded by banks.',
-   impact:'€5,750,000',metric:'Affordability',
-   bc:'https://docs.google.com/document/d/1A-v0CzcyICpIriqkbQT6FQtQQZbOcgTNXjzLJPYPRxc/edit',
-   okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
-  {name:'LS Exclusive Deals',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:5,conf:4,bp:4,total:4.5,
+  {name:'LS Exclusive Deals',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:5,conf:4,bp:3,total:4.3,
    submitter:'Harshit Abichandani',requester:'CBO Office',date:'Mar 17, 2026',
    desc:'Local Shops (LS) vendors currently lack a targeted mechanism to reward high-value pro users, drive incremental frequency and basket size, and differentiate from competitors. Feature: LS exclusive deals, enabling LS vendors to offer pro-only discounts, similar to Food and tmart.',
    impact:'€17,500,000',metric:'Exclusive deals savings as % of total pro savings',
    bc:'https://docs.google.com/document/d/1Z_fEWgUukWwWS3En8TGQGIGEt-4boDfobvbSA6WhvFw/edit',
    okr:'O4. Grow tPro — Pro Exclusive Deals Swimlane on tMart Home. PM: Leen Ashqar',
    comments:['Q2 — Validation. Only 3PL integrated by August. Q3 rollout.'],cbo:'Hussein Daher',tribe:'Sofia Simões de Almeida',pm:'Howaida Thabet'},
+  {name:'Banking Visibility',bet:'Value',prio:'P0',status:'NEW',si:4,conf:3,bp:3,total:3.5,
+   submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
+   desc:'Expanding visibility across the app and surfacing offers earlier in the journey can unlock ~€7.5M GMV per year, funded by bank partners.',
+   impact:'€7,500,000',metric:'Affordability',
+   bc:'https://docs.google.com/document/d/1a2AHyjDtn1iPPDtohpm0Sh6mKHRTbeCyMuSC2FsbHdQ/edit',
+   okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
   {name:'LS Loyalty Programs',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:3,conf:4,bp:4,total:3.5,
    submitter:'Vipul Gajbhiye',requester:'Grocery & Retail',date:'Mar 16, 2026',
    desc:'Talabat currently does not support LS partner loyalty programs, creating a value gap versus offline shopping and competitors already enabling loyalty parity. Competitor benchmarks (Glovo, Snoonu–Monoprix) indicate loyalty integration can materially impact retention, frequency, and partner share. Just one loyalty integration by competition (Snoonu–Monoprix) led to ~24K orders and ~€600K GMV lost/month in Qatar.',
@@ -876,27 +865,46 @@ const councilData=[
    bc:'',bcTitle:'Enabling Partner Loyalty Cards [talabat]',
    okr:'O4.KR3 — cashback & loyalty mechanics. PM: Leen Ashqar',
    comments:[],cbo:'Hussein Daher',tribe:'Sofia Simões de Almeida',pm:'Howaida Thabet'},
-  {name:'SKU Banking',bet:'Value',prio:'P1',status:'NEW',si:2,conf:4,bp:4,total:3.0,
-   submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
-   desc:'Banks are increasingly seeking targeted, differentiated campaigns tied to specific products, brands, or vendors. Current platform limitations prevent this. Enabling SKU and vendor-level targeting unlocks ~€2.5M additional GMV and allows highly strategic campaign execution.',
-   impact:'€2,500,000',metric:'Affordability',
-   bc:'https://docs.google.com/document/d/1zGX-l3Y1I83fD3kKjoMoKduVP8uPXyv6kXxXTlWAKAA/edit',
-   okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
-  {name:'UAE Tax Portal B2B',bet:'Foundations',prio:'P1',status:'NEW',si:4,conf:3,bp:5,total:3.9,
+  {name:'UAE Tax Portal B2B',bet:'Foundations',prio:'P1',status:'Backlog',si:3,conf:3,bp:5,total:3.4,
    submitter:'Noha Bashtar',requester:'Finance',date:'Apr 3, 2026',
    desc:'Building the integration for B2B tax portal in UAE, likely fulfilling any mandatory field in the integration between billing and ERP.',
    impact:'>€1M penalty for failing to meet the target',metric:'Avoid penalty risk',
    bc:'https://docs.google.com/document/d/1bynnQRCdVZJoiUnkQJOtCamgSHsbFprUU_X1pypGof0/edit',
    okr:'O9. Foundations — Tax/compliance. Legal/regulatory requirement.',
    comments:[],cbo:'',tribe:'Sofia Simões de Almeida',pm:'Bipin Kumar'},
-  {name:'Oman Tax Portal',bet:'Foundations',prio:'P1',status:'NEW',si:3,conf:3,bp:5,total:3.4,
+  {name:'Mission Banking',bet:'Value',prio:'P0',status:'NEW',si:3,conf:3,bp:3,total:3.0,
+   submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
+   desc:'Introducing mission-based campaigns (e.g. "complete 3 orders to unlock reward") can unlock ~€5.75M additional GMV by increasing frequency and retention funded by banks.',
+   impact:'€5,750,000',metric:'Affordability',
+   bc:'https://docs.google.com/document/d/1A-v0CzcyICpIriqkbQT6FQtQQZbOcgTNXjzLJPYPRxc/edit',
+   okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
+  {name:'Oman Tax Portal',bet:'Foundations',prio:'P1',status:'Backlog',si:2,conf:3,bp:5,total:2.9,
    submitter:'Noha Bashtar',requester:'Finance',date:'Apr 3, 2026',
    desc:'Building the tax portal integration in Oman for B2B and B2C invoices.',
    impact:'5000 OMR per violation/invoice',metric:'Compliance',
    bc:'https://docs.google.com/document/d/17AbGO6uJQodiOfXYTSNG6RkQLcENpMvmn-355KwS3DY/edit',
    okr:'O9. Foundations — Tax/compliance. Legal/regulatory requirement.',
    comments:[],cbo:'',tribe:'Sofia Simões de Almeida',pm:'Bipin Kumar'},
-  {name:'In-App Digital Invoices tMart QA',bet:'Experience',prio:'P1',status:'Needs Clarification',si:2,conf:3,bp:3,total:2.5,
+  {name:'SKU Banking',bet:'Value',prio:'P1',status:'NEW',si:2,conf:3,bp:3,total:2.5,
+   submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
+   desc:'Banks are increasingly seeking targeted, differentiated campaigns tied to specific products, brands, or vendors. Current platform limitations prevent this. Enabling SKU and vendor-level targeting unlocks ~€2.5M additional GMV and allows highly strategic campaign execution.',
+   impact:'€2,500,000',metric:'Affordability',
+   bc:'https://docs.google.com/document/d/1zGX-l3Y1I83fD3kKjoMoKduVP8uPXyv6kXxXTlWAKAA/edit',
+   okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
+  {name:'Bulk Update Timings Ramadan',bet:'Experience',prio:'P2',status:'Needs Clarification',si:2,conf:3,bp:2,total:2.3,
+   submitter:'Mohamed Atef',requester:'Grocery & Retail',date:'Apr 22, 2026',
+   desc:'The current manual update of timings during Ramadan for 8,000 branches is inefficient, consuming 173 hours per cycle and causing a 62% spike in cancellations due to timing errors. This results in 254K lost GMV during the first week alone. Implementing a bulk CSV upload tool will reduce manual labor by 65%, saving 113 hours annually.',
+   impact:'254K lost GMV first week, 62% cancellation spike',metric:'Lost GMV due to wrong timings',
+   bc:'',bcTitle:'BC| Bulk Branch Timing Automation: Reducing Update Time by 65% | Q2 26',
+   okr:'',comments:[],cbo:'Khee Lim / Aanchal Kotwaney',tribe:'Rose Marsh',pm:''},
+  {name:'Bank Campaign UX/UI',bet:'Ecosystem & Growth',prio:'P0',status:'Rejected',si:2,conf:2,bp:3,total:2.2,
+   submitter:'(Marketing)',requester:'Marketing',date:'Mar 17, 2026',
+   desc:'Running multiple bank-funded voucher campaigns split across different days to manage daily redemption caps. Users have learned timing, leading to vouchers consumed within seconds. Looking to introduce usage restrictions for fair distribution.',
+   impact:'€1M+ revenue, 800K+ orders',metric:'UX/UI improvement',
+   bc:'',bcTitle:'Product Opportunity Submission - UI/UX journey for Banking partnerships',
+   okr:'Shared P&T → Drive incremental GMV (Voucher visibility). No specific KR.',
+   comments:['Delete by the requester'],cbo:'Kedar Kulkarni / Alvaro Martinez Espinosa',tribe:'',pm:''},
+  {name:'In-App Digital Invoices tMart QA',bet:'Foundations',prio:'P1',status:'Backlog',si:2,conf:2,bp:2,total:2.0,
    submitter:'Kuldeep Singh',requester:'Grocery & Retail',date:'Apr 7, 2026',
    desc:'Currently, tMart teams in Qatar manually print physical invoices for every order. This process introduces a severe operational bottleneck, directly degrading our 15-minute DT SLA and operational costs. While physical invoices are not legally required by MOCI, they are retained to maintain customer trust. Proposal: transition to In-App Digital Invoices.',
    impact:'€1.8M',metric:'Order Prep time & Delivery Time by ~40 seconds',
@@ -904,54 +912,34 @@ const councilData=[
    okr:'O9 Foundations (operational improvement)',
    comments:[{author:'Miriam Velloso',text:'@alvaro.garcia can you review this request, and let us know if this is a regional request or just for QA?'}],
    cbo:'Alvaro Garcia Leal',tribe:'Sofia Simões de Almeida',pm:'Bipin Kumar'},
-  {name:'Coffee Tile',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:1,conf:2,bp:3,total:1.7,
-   submitter:'(Marketing)',requester:'Marketing',date:'Mar 18, 2026',
-   desc:'Strong growth in coffee category, with EDR driving significant share. Proposal: test a time-based "Coffee" tile on homescreen during high-intent windows (morning, post-lunch) to increase visibility and drive incremental orders.',
-   impact:'Not quantified',metric:'Coffee orders / GMV',
-   bc:'',bcTitle:'UAE: Test "Coffee" Tile on Homescreen',
-   okr:'ALREADY COVERED: O6.KR2 → TLBVAL-5 Coffee Tile Time-Based Experiment (UAE) — In Progress. PM: Adrian Alvarez',
-   comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Emily Thomas',pm:'Adrian Alvarez'},
-  {name:'TOD Swimlane',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:1,conf:2,bp:3,total:1.7,
-   submitter:'Omar Ezz',requester:'Marketing',date:'Apr 1, 2026',
-   desc:'Capitalizing on the swimlane along with wider marketing channels to support the time-of-day strategy itself.',
-   impact:'Need assistance on financial incrementality',metric:'Time of day orders spike, UTR, Frequency',
-   bc:'',bcTitle:'TOD Swimlane',
-   okr:'O6.KR2 (Time-context relevance on Home). Related to Coffee Tile & TOD initiatives. PM: Adrian Alvarez',
-   comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Emily Thomas',pm:'Adrian Alvarez'},
-  {name:'Deal Targeting Pro',bet:'Ecosystem & Growth',prio:'P1',status:'Product Review',si:1,conf:2,bp:2,total:1.5,
+  {name:'Deal Targeting Pro',bet:'Ecosystem & Growth',prio:'P1',status:'Product Review',si:1,conf:3,bp:3,total:2.0,
    submitter:'Prashasti Nagpal',requester:'CBO Office',date:'Apr 1, 2026',
    desc:'Current pro deals drive high engagement but are becoming increasingly inefficient as an acquisition tool. Proposal: implement deal targeting to convert active, in-session users. Layer targeted "boosters" on top of current incentivized topline campaigns. Starting with 10% or 20% boosters with A/B grade vendors, leveraging VFD component.',
    impact:'+500 new pro users/month, CPA €2.41',metric:'Pro acquisitions',
    bc:'https://docs.google.com/spreadsheets/d/18ngrwg5bZhLCIRJCMEYVcE7XEygqYr6574VhiUv-8eI',
    okr:'O4. Grow tPro → KR1 (Reduce triggered churn). PM: Leen Ashqar',
    comments:[],cbo:'Hussein Daher',tribe:'',pm:''},
-  {name:'Exclusive Deals Iraq',bet:'Ecosystem & Growth',prio:'P1',status:'Product Review',si:1,conf:2,bp:2,total:1.5,
-   submitter:'Ashish Atree',requester:'Partner Growth',date:'Apr 7, 2026',
-   desc:'Planning to launch Exclusive deals to new customers in Iraq. Need help to prioritize the effort on Swimlane integration.',
-   impact:'NA',metric:'New customer acquisition',
-   bc:'',
-   okr:'O3. Boost QC MAU. PM: Howaida',
-   comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Sofia Simões de Almeida',pm:''},
-  {name:'Segmented Banking',bet:'Value',prio:'P1',status:'NEW',si:1,conf:2,bp:3,total:1.7,
-   submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
-   desc:'Enabling differentiated offers by segment allows better targeting and ROI optimization. Unlocks stronger personalization and supports pro value proposition and retention.',
-   impact:'Not quantified',metric:'Pro acquisition, retention',
-   bc:'https://docs.google.com/document/d/1ERbnZlvxVyawjeGynngzgoyIbwCKYAK_bLZmd9-SDkI/edit',
-   okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
-  {name:'Bulk Update Timings Ramadan',bet:'Experience',prio:'P2',status:'NEW',si:1,conf:3,bp:2,total:1.8,
-   submitter:'Mohamed Atef',requester:'Grocery & Retail',date:'Apr 22, 2026',
-   desc:'The current manual update of timings during Ramadan for 8,000 branches is inefficient, consuming 173 hours per cycle and causing a 62% spike in cancellations due to timing errors. This results in 254K lost GMV during the first week alone. Implementing a bulk CSV upload tool will reduce manual labor by 65%, saving 113 hours annually.',
-   impact:'254K lost GMV first week, 62% cancellation spike',metric:'Lost GMV due to wrong timings',
-   bc:'',bcTitle:'BC| Bulk Branch Timing Automation: Reducing Update Time by 65% | Q2 26',
-   okr:'',comments:[],cbo:'Khee Lim / Aanchal Kotwaney',tribe:'Rose Marsh',pm:''},
-  {name:'Stamps Pro Multiplier',bet:'Ecosystem & Growth',prio:'P1',status:'Backlog',si:1,conf:2,bp:2,total:1.5,
+  {name:'Stamps Pro Multiplier',bet:'Ecosystem & Growth',prio:'P1',status:'Backlog',si:1,conf:3,bp:2,total:1.8,
    submitter:'Prashasti Nagpal',requester:'CBO Office',date:'Apr 1, 2026',
    desc:'Introduce a 2x voucher multiplier for pro users who successfully collect 3 stamps on eligible chains. Fully funded by talabat. Hypothesis: higher voucher value drives incremental topline by increasing funnel entries and completion rates among pro users. ~50% platform cannibalization assumed.',
    impact:'€74,508',metric:'Pro user frequency and platform topline',
    bc:'https://docs.google.com/spreadsheets/d/16g6YIzAzpq5B0Gpupi7UEqpvWcw8k2XtvLE3xe_Fk7o/edit',
    okr:'O4. Grow tPro → KR1 / O5 → KR1 (Missions frequency). PM: Leen Ashqar / Howaida Thabet',
    comments:[],cbo:'Hussein Daher',tribe:'Leen Ashqar',pm:''},
-  {name:'Rider/Customer Phone Masking',bet:'Experience',prio:'P1',status:'Needs Clarification',si:1,conf:1,bp:3,total:1.4,
+  {name:'Segmented Banking',bet:'Value',prio:'P1',status:'Needs Clarification',si:1,conf:2,bp:3,total:1.7,
+   submitter:'Sakshi Singhal',requester:'Marketing',date:'Apr 22, 2026',
+   desc:'Enabling differentiated offers by segment allows better targeting and ROI optimization. Unlocks stronger personalization and supports pro value proposition and retention.',
+   impact:'Not quantified',metric:'Pro acquisition, retention',
+   bc:'https://docs.google.com/document/d/1ERbnZlvxVyawjeGynngzgoyIbwCKYAK_bLZmd9-SDkI/edit',
+   okr:'',comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Rose Marsh',pm:''},
+  {name:'Coffee Tile',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:1,conf:2,bp:2,total:1.5,
+   submitter:'(Marketing)',requester:'Marketing',date:'Mar 18, 2026',
+   desc:'Strong growth in coffee category, with EDR driving significant share. Proposal: test a time-based "Coffee" tile on homescreen during high-intent windows (morning, post-lunch) to increase visibility and drive incremental orders.',
+   impact:'Not quantified',metric:'Coffee orders / GMV',
+   bc:'',bcTitle:'UAE: Test "Coffee" Tile on Homescreen',
+   okr:'ALREADY COVERED: O6.KR2 → TLBVAL-5 Coffee Tile Time-Based Experiment (UAE) — In Progress. PM: Adrian Alvarez',
+   comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Emily Thomas',pm:'Adrian Alvarez'},
+  {name:'Rider/Customer Phone Masking',bet:'Experience',prio:'P1',status:'Needs Clarification',si:1,conf:1,bp:2,total:1.2,
    submitter:'Abdou',requester:'Commercial',date:'Mar 9, 2026',
    desc:'A meaningful share of Net Failed Orders is driven by cases where the customer does not respond at delivery time and the rider cannot reliably contact them. This creates recurring operational leakage across GMV, vendor refunds, rider time, and support effort. The issue is concentrated in specific segments — Food, Cash, and international phone numbers.',
    impact:'Significant portion of Net Failed Orders (unquantified)',metric:'Net Fail Rate / Customer Fail rate / Lost GMV',
@@ -959,25 +947,32 @@ const councilData=[
    okr:'O2. Redefine Customer & Partner peace of mind → KR1 (contact rate) / KR2 (deflected sessions). PM: Islam Ameen',
    comments:[{author:'Miriam Velloso',text:'@aanchal.kotwaney could you take a look at this intake request and let us know if it\'s something we should pick up? If so, is this a regional issue or UAE-specific?'}],
    cbo:'Khee Lim / Aanchal Kotwaney',tribe:'Islam Ameen',pm:''},
-  {name:'SD Prime Test',bet:'Ecosystem & Growth',prio:'P2',status:'NEW',si:1,conf:2,bp:1,total:1.3,
+  {name:'TOD Swimlane',bet:'Ecosystem & Growth',prio:'P1',status:'Accepted',si:1,conf:1,bp:2,total:1.2,
+   submitter:'Omar Ezz',requester:'Marketing',date:'Apr 1, 2026',
+   desc:'Capitalizing on the swimlane along with wider marketing channels to support the time-of-day strategy itself.',
+   impact:'Need assistance on financial incrementality',metric:'Time of day orders spike, UTR, Frequency',
+   bc:'',bcTitle:'TOD Swimlane',
+   okr:'O6.KR2 (Time-context relevance on Home). Related to Coffee Tile & TOD initiatives. PM: Adrian Alvarez',
+   comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Emily Thomas',pm:'Adrian Alvarez'},
+  {name:'Exclusive Deals Iraq',bet:'Ecosystem & Growth',prio:'P1',status:'Rejected',si:1,conf:1,bp:2,total:1.2,
+   submitter:'Ashish Atree',requester:'Partner Growth',date:'Apr 7, 2026',
+   desc:'Planning to launch Exclusive deals to new customers in Iraq. Need help to prioritize the effort on Swimlane integration.',
+   impact:'NA',metric:'New customer acquisition',
+   bc:'',
+   okr:'O3. Boost QC MAU. PM: Howaida',
+   comments:[],cbo:'Alvaro Martinez Espinosa',tribe:'Sofia Simões de Almeida',pm:''},
+  {name:'SD Prime Test',bet:'Ecosystem & Growth',prio:'P2',status:'Needs Clarification',si:1,conf:1,bp:2,total:1.2,
    submitter:'Shaheem Rafeeque',requester:'Sales',date:'Apr 21, 2026',
    desc:'The goal is to see how specific user behavior shifts when we simplify the promotional environment. Target: high-value, discount-driven users who prefer Sponsored Deals. Test: exclusively expose to SD (Boosted and Non-Boosted), no other item-level discounts.',
    impact:'€30,000',metric:'NCR',
    bc:'',
-   okr:'',comments:[],cbo:'',tribe:'',pm:''},
-  {name:'Bank Campaign UX/UI',bet:'Ecosystem & Growth',prio:'P0',status:'Rejected',si:1,conf:1,bp:2,total:1.2,
-   submitter:'(Marketing)',requester:'Marketing',date:'Mar 17, 2026',
-   desc:'Running multiple bank-funded voucher campaigns split across different days to manage daily redemption caps. Users have learned timing, leading to vouchers consumed within seconds. Looking to introduce usage restrictions for fair distribution.',
-   impact:'€1M+ revenue, 800K+ orders',metric:'UX/UI improvement',
-   bc:'',bcTitle:'Product Opportunity Submission - UI/UX journey for Banking partnerships',
-   okr:'Shared P&T → Drive incremental GMV (Voucher visibility). No specific KR.',
-   comments:['Delete by the requester'],cbo:'Kedar Kulkarni / Alvaro Martinez Espinosa',tribe:'',pm:''}
+   okr:'',comments:[],cbo:'',tribe:'',pm:''}
 ];
 
 function renderCouncil(){
   const container=document.getElementById('councilCards');
   const tiers=[
-    {label:'Fast-Track',cls:'fast',badge:'fast',items:councilData.filter(d=>d.total>=4.0)},
+    {label:'Prioritize',cls:'fast',badge:'fast',items:councilData.filter(d=>d.total>=4.0)},
     {label:'Discuss',cls:'discuss',badge:'discuss',items:councilData.filter(d=>d.total>=2.5&&d.total<4.0)},
     {label:'Defer / Next Quarter',cls:'defer',badge:'defer',items:councilData.filter(d=>d.total<2.5)}
   ];
