@@ -310,7 +310,7 @@ h2 span{color:var(--orange)}
     <div class="pipe-step reveal reveal-delay-2" data-step="5" onclick="showStep(5)">
       <div class="pipe-num" style="background:var(--purple)">6</div>
       <div class="pipe-label">Status</div>
-      <div class="pipe-desc">Approved by Intake / Needs Clarification</div>
+      <div class="pipe-desc">Ready for Intake / Needs Clarification</div>
     </div>
     <div class="pipe-arrow reveal">&rarr;</div>
     <div class="pipe-step reveal reveal-delay-3" data-step="6" onclick="showStep(6)">
@@ -486,9 +486,11 @@ h2 span{color:var(--orange)}
     <div class="trigger-chips">
       <span class="trigger-chip" style="background:var(--o3)">NEW</span>
       <span class="trigger-arrow">&rarr;</span>
-      <span class="trigger-chip" style="background:var(--orange)">Approved by Intake</span>
+      <span class="trigger-chip" style="background:var(--orange)">Ready for Intake</span>
       <span class="trigger-arrow">&rarr;</span>
       <span class="trigger-chip" style="background:#B34700">Needs Clarification</span>
+      <span class="trigger-arrow">&rarr;</span>
+      <span class="trigger-chip" style="background:#1565c0">Approved by Intake</span>
       <span class="trigger-arrow">&rarr;</span>
       <span class="trigger-chip" style="background:var(--purple)">Product Review</span>
       <span class="trigger-arrow">&rarr;</span>
@@ -498,7 +500,7 @@ h2 span{color:var(--orange)}
 
   <div class="dm-container">
     <div class="dm-thread reveal">
-      <h4><span class="dot" style="background:var(--orange)"></span> Approved by Intake</h4>
+      <h4><span class="dot" style="background:var(--orange)"></span> Ready for Intake</h4>
       <div class="dm-msg dm-bot">
         <div class="sender">Intake Bot &rarr; #tlb_opportunityintake_product</div>
         &#9989; <strong>Initiative approved by intake</strong><br><br>
@@ -766,11 +768,11 @@ h2 span{color:var(--orange)}
 const steps = [
   {title:'Step 1: Classify Opportunity',items:['First step: categorize as New Bet or Optimization','New Bet: brand new initiative, goes to intake council','Optimization: improvement to existing feature or metric','Classification drives downstream steps (OKR mapping only for Optimizations)','Uses description keywords and theme context','Also flags Urgent items for fast-track review']},
   {title:'Step 2: Detect New Submissions',items:['Scan across 6 bet tabs: Choice, Experience, Value, Ecosystem & Growth, Foundations, No Related Bet','Trigger: Status (col H) is empty or "NEW"','Trigger: CBO (col O) is blank','Trigger: Product Tribe (col P) is blank','Trigger: Product Owner (col R) is blank','Runs on-demand or on schedule']},
-  {title:'Step 3: Quality Evaluation',items:['Required: Description (col G) — at least 2 sentences','Required: Impact estimate (col I) — not blank','Required: Metric (col J) — specified','Required: Doc link (col L) — valid URL','Optional flags: Customer impact, Quality columns, Submitter priority','Outcome: Pass → Approved by Intake, Fail → Needs Clarification']},
+  {title:'Step 3: Quality Evaluation',items:['Required: Description (col G) — at least 2 sentences','Required: Impact estimate (col I) — not blank','Required: Metric (col J) — specified','Required: Doc link (col L) — valid URL','Optional flags: Customer impact, Quality columns, Submitter priority','Outcome: Pass → Ready for Intake, Fail → Needs Clarification']},
   {title:'Step 4: Auto-Assign Stakeholders',items:['Read Theme from column C','Lookup against Intake Council tab','Auto-fill CBO (col O) from row 4','Auto-fill Product Tribe (col P) from row 2','Auto-fill Product Owner / Bet Lead (col R) from row 3','5 theme mappings: Choice, Experience, Value, Ecosystem, Foundations']},
   {title:'Step 5: Map to OKR',items:['Only triggered for Optimizations (not New Bets)','Scans description for metric keywords','Matches to H1 2026 Objectives (O1–O6)','Identifies the relevant Key Result','Assigns CBO owner from the OKR table','6 objectives covering GMV, Affordability, MAU, tPro, Growth, Experience']},
-  {title:'Step 6: Update Status',items:['Sets status to "Approved by Intake" if quality check passes','Sets status to "Needs Clarification" if required fields missing','Records what specific fields are missing','Writes Intake Approved Date timestamp (col AA)','Prepares context for the channel notification','Status visible in the intake sheet for council review']},
-  {title:'Step 7: Notify via Channel Thread',items:['Posts to #tlb_opportunityintake_product — one thread per initiative','@mentions submitter, CBO, and Product Tribe in the thread','Triggered every time the status changes — not just once','If Approved by Intake: shows scores, tier, and assigned stakeholders','If Needs Clarification: lists specific missing fields','Thread replies captured back to the intake sheet as cell notes']}
+  {title:'Step 6: Update Status',items:['Sets status to "Ready for Intake" if quality check passes','Sets status to "Needs Clarification" if required fields missing','Records what specific fields are missing','Writes Status Updated timestamp (col AA) on every status change','Prepares context for the channel notification','Status visible in the intake sheet for council review']},
+  {title:'Step 7: Notify via Channel Thread',items:['Posts to #tlb_opportunityintake_product — one thread per initiative','@mentions submitter, CBO, and Product Tribe in the thread','Triggered every time the status changes — not just once','If Ready for Intake: shows scores, tier, and assigned stakeholders','If Needs Clarification: lists specific missing fields','Thread replies captured back to the intake sheet as cell notes']}
 ];
 
 function showStep(i){
@@ -982,7 +984,7 @@ function renderCouncil(){
     t.items.sort((a,b)=>b.total-a.total);
     t.items.forEach((d,i)=>{
       const svCls=v=>'sv-'+Math.min(5,Math.max(1,v));
-      const statusColor={'NEW':'#FF5900','Approved by Intake':'#1565c0','Approved by Product':'#2e7d32','Needs Clarification':'#e65100','Product Review':'#8318D8','Backlog':'#9e9e9e','Rejected':'#c62828'}[d.status]||'#9e9e9e';
+      const statusColor={'NEW':'#FF5900','Ready for Intake':'#FF944D','Approved by Intake':'#1565c0','Approved by Product':'#2e7d32','Needs Clarification':'#e65100','Product Review':'#8318D8','Backlog':'#9e9e9e','Rejected':'#c62828'}[d.status]||'#9e9e9e';
       html+=`<div class="council-card ${t.cls}" onclick="toggleCouncil(this)">
         <div class="council-header">
           <div class="council-rank" style="background:${t.badge==='fast'?'#2e7d32':t.badge==='discuss'?'var(--orange)':'#9e9e9e'}">${councilData.indexOf(d)+1}</div>
